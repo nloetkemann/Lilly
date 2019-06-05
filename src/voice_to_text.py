@@ -2,14 +2,12 @@ import speech_recognition as sr
 
 
 def voice_2_text():
-    r = sr.Recognizer()
-    harvard = sr.AudioFile('sounds/harvard.wav')
-    with harvard as source:
-        print('Say something')
-        audio = r.record(source)
-        print('Finished')
-
+    r = sr.Recognizer()                                                                                   
+    with sr.Microphone() as source:                                                                       
+        print("Speak:")                                                                                   
+        audio = r.listen(source)
+        print("Finished!")
     try:
-        print('Text' + r.recognize_google(audio))
+        return r.recognize_google(audio)
     except:
-        print('error')
+        return None
