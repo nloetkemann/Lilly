@@ -3,7 +3,10 @@ from src.voice_to_text import voice_2_text
 import time
 
 if __name__ == "__main__":
-    text_2_voice(voice_2_text())
+    text = voice_2_text()
+    #print(text)
+    #if text is not None:
+    #    text_2_voice(text)
     #print(voice_2_text())
     #time.sleep(2)
     #text_2_voice("Schön deine Stimme zu hören.")
