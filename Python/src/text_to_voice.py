@@ -4,6 +4,7 @@ import pyttsx3
 from playsound import playsound
 
 engine = pyttsx3.init()
+engine.setProperty('rate', 150)
 
 
 def text_2_voice(text, remove=False):
