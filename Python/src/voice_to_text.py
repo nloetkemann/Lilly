@@ -1,4 +1,5 @@
 import speech_recognition as sr
+import os
 
 
 def voice_2_text():
@@ -8,26 +9,13 @@ def voice_2_text():
         audio = r.listen(source)
         print("Finished!")
     try:
-        return r.recognize_bing(audio)
+        return r.recognize_wit(audio, os.environ['WIT_TOKEN'])
     except Exception as e:
         print(e)
-    try:
-        return r.recognize_google(audio)
-    except Exception as e:
-        print(e)
-    try:
-        return r.recognize_ibm(audio)
-    except Exception as e:
-        print(e)
-    try:
-        return r.recognize_sphinx(audio)
-    except Exception as e:
-        print(e)
-    try:
-        return r.recognize_wit(audio)
-    except Exception as e:
-        print(e)
-    try:
-        return r.recognize_houndify(audio)
-    except Exception as e:
-        print(e)
+        return None
+
+def voice_2_text2():
+	def send():
+		pass
+	
+	

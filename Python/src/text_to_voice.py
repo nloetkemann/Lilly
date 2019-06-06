@@ -7,7 +7,7 @@ engine = pyttsx3.init()
 engine.setProperty('rate', 150)
 
 
-def text_2_voice(text, remove=False):
+def text_2_voice(text, remove=True):
     file = 'sounds/temp.mp3'
     tts = gTTS(text=text, lang='de')
     tts.save(file)
