@@ -1,8 +1,6 @@
 import pyaudio
 import wave
-import requests
-import json
-import os
+
  
 def record_audio(RECORD_SECONDS, WAVE_OUTPUT_FILENAME):
     #--------- SETTING PARAMS FOR OUR AUDIO FILE ------------#
@@ -60,49 +58,3 @@ def read_audio(WAVE_FILENAME):
         audio = f.read()
     return audio
     
-
- 
-# Wit speech API endpoint
-API_ENDPOINT = 'https://api.wit.ai/speech'
- 
-# Wit.ai api access token
-wit_access_token = os.environ['WIT_TOKEN']
- 
-def RecognizeSpeech(AUDIO_FILENAME, num_seconds = 5):
- 
-    # record audio of specified length in specified audio file
-    record_audio(num_seconds, AUDIO_FILENAME)
- 
-    # reading audio
-    audio = read_audio(AUDIO_FILENAME)
- 
-    # defining headers for HTTP request
-    headers = {'authorization': 'Bearer ' + wit_access_token,
-               'Content-Type': 'audio/wav'}
- 
-    # making an HTTP post request
-    resp = requests.post(API_ENDPOINT, headers = headers,
-                         data = audio)
- 
-    # converting response content to JSON format
-    data = json.loads(resp.content)
- 
-    # get text from data
-    text = data['_text']
-    if 'entities' in data:
-        entities = list(data['entities'].keys())
-        if len(entities) > 0:
-            entity = entities[0]
-            values = []
-            for value in data['entities'][entity]:
-                 values.append(value['value'])
-                 
-            return text, entity, values
-        
-     # return the text
-    return text, None, None
- 
-if __name__ == "__main__":
-    text, _, _  =  RecognizeSpeech(4)
-    os.remove('myspeech.wav')
-    print("\nYou said: {}".format(text))
