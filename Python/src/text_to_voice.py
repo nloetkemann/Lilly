@@ -6,6 +6,7 @@ from playsound import playsound
 engine = pyttsx3.init()
 engine.setProperty('rate', 150)
 
+
 # uses googles tts creates a mp3 and deletes it
 def text_2_voice(text, remove=True):
     file = 'sounds/temp.mp3'
@@ -14,6 +15,7 @@ def text_2_voice(text, remove=True):
     playsound(file)
     if remove:
         os.remove(file)
+
 
 # doesnt create a file
 def text_2_voice2(text):

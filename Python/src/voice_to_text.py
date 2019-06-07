@@ -1,6 +1,7 @@
 import speech_recognition as sr
 import os
-import requests, json
+import requests
+import json
 
 from src.wit import record_audio, read_audio
 
@@ -22,6 +23,7 @@ def voice_2_text():
     except Exception as e:
         print(e)
         return None, None, None
+
 
 # records by default 5 seconds, sends direct api request
 def voice_2_text2(num_seconds=5):
