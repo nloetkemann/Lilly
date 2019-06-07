@@ -12,6 +12,7 @@ print(voices)
 
 
 
+
 # uses googles tts creates a mp3 and deletes it
 def text_2_voice(text, remove=True):
     time1 = time.time()
@@ -23,6 +24,7 @@ def text_2_voice(text, remove=True):
         os.remove(file)
     time2 = time.time()
     print(time2 - time1)
+
 
 # doesnt create a file
 def text_2_voice2(text):

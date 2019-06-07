@@ -1,6 +1,8 @@
 import speech_recognition as sr
-import os,time
-import requests, json, tempfile
+import os
+import requests
+import json
+import time
 
 from src.wit import record_audio, read_audio
 
@@ -28,6 +30,7 @@ def voice_2_text():
         print(time2 - time1)
         print(e)
         return None, None, None
+
 
 # records by default 5 seconds, sends direct api request
 def voice_2_text2(num_seconds=5):
