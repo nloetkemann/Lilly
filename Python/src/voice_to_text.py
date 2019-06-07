@@ -23,7 +23,7 @@ def voice_2_text():
         print(e)
         return None, None, None
 
-
+# records by default 5 seconds, sends direct api request
 def voice_2_text2(num_seconds=5):
     audiofile = 'sounds/temp.wav'
     # record audio of specified length in specified audio file
