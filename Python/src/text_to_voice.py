@@ -5,18 +5,18 @@ from playsound import playsound
 import time
 from pydub import AudioSegment
 from pydub.playback import play
+from tempfile import TemporaryFile
 
 engine = pyttsx3.init()
 engine.setProperty('rate', 150)
 
 
 # uses googles tts creates a mp3 and deletes it
-# takes 2,13 sec for a "Hello"
+# takes 2 sec for a "Hello"
 def text_2_voice(text, remove=True):
     time1 = time.time()
     file = 'sounds/temp.mp3'
-    tts = gTTS(text=text, lang='de')
-    tts.save(file)
+    gTTS(text=text, lang='de').save(file)
     os.system("mpg123 " + file)
     if remove:
         os.remove(file)
