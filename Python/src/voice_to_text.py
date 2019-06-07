@@ -1,6 +1,6 @@
 import speech_recognition as sr
-import os
-import requests, json
+import os,time
+import requests, json, tempfile
 
 from src.wit import record_audio, read_audio
 
@@ -12,19 +12,26 @@ wit_access_token = os.environ['WIT_TOKEN']
 
 # records from mic and returns what it understood
 def voice_2_text():
+    time1 = time.time()
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Speak:")
         audio = r.listen(source)
         print("Finished!")
     try:
-        return r.recognize_wit(audio, wit_access_token), None, None
+        value = r.recognize_wit(audio, wit_access_token)
+        time2 = time.time()
+        print(time2 - time1)
+        return value, None, None
     except Exception as e:
+        time2 = time.time()
+        print(time2 - time1)
         print(e)
         return None, None, None
 
 # records by default 5 seconds, sends direct api request
 def voice_2_text2(num_seconds=5):
+    time1 = time.time()
     audiofile = 'sounds/temp.wav'
     # record audio of specified length in specified audio file
     record_audio(num_seconds, audiofile)
@@ -53,8 +60,12 @@ def voice_2_text2(num_seconds=5):
             values = []
             for value in data['entities'][entity]:
                 values.append(value['value'])
+            time2 = time.time()
+            print(time2 - time1)
 
             return text, entity, values
 
     # return the text
+    time2 = time.time()
+    print(time2 - time1)
     return text, None, None
