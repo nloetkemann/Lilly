@@ -1,5 +1,4 @@
-package main
-
+package src
 /*
   #include <stdio.h>
   #include <unistd.h>
@@ -23,7 +22,6 @@ package main
 */
 import "C"
 
-// stackoverflow.com/questions/14094190/golang-function-similar-to-getchar
 
 import (
 	"fmt"
@@ -42,9 +40,9 @@ func errCheck(err error) {
 	}
 }
 
-func main() {
 
-	if len(os.Args) != 2 {
+func Voice_2_text() {
+  if len(os.Args) != 2 {
 		fmt.Printf("Usage : %s <audiofilename.wav>\n", os.Args[0])
 		os.Exit(0)
 	}
@@ -126,4 +124,6 @@ func main() {
 		errCheck(err)
 	}
 	errCheck(stream.Stop())
+
+  Send_2_wit()
 }
