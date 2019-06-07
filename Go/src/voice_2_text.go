@@ -29,7 +29,6 @@ import (
 	wave "github.com/zenwerk/go-wave"
 	"math/rand"
 	"os"
-	"strings"
 	"time"
 )
 
@@ -42,18 +41,11 @@ func errCheck(err error) {
 
 
 func Voice_2_text() {
-  if len(os.Args) != 2 {
-		fmt.Printf("Usage : %s <audiofilename.wav>\n", os.Args[0])
-		os.Exit(0)
-	}
+  audioFileName := "sounds/temp.wav"
 
-	audioFileName := os.Args[1]
 
 	fmt.Println("Recording. Press ESC to quit.")
 
-	if !strings.HasSuffix(audioFileName, ".wav") {
-		audioFileName += ".wav"
-	}
 	waveFile, err := os.Create(audioFileName)
 	errCheck(err)
 
@@ -84,22 +76,18 @@ func Voice_2_text() {
 	waveWriter, err := wave.NewWriter(param)
 	errCheck(err)
 
-	//defer waveWriter.Close()
+	defer waveWriter.Close()
+	defer portaudio.Terminate()
+	defer stream.Close()
 
 	go func() {
-		key := C.getch()
-		fmt.Println()
-		fmt.Println("Cleaning up ...")
-		if key == 27 {
-			// better to control
-			// how we close then relying on defer
-			waveWriter.Close()
-			stream.Close()
-			portaudio.Terminate()
-			fmt.Println("Play", audioFileName, "with a audio player to hear the result.")
-			os.Exit(0)
-
-		}
+		time.Sleep(4000 * time.Millisecond)
+		fmt.Println("\nCleaning up ...")
+		stream.Stop()
+		c := make(chan int)
+		Send_2_wit(c, audioFileName)
+		<-c
+		os.Exit(0)
 
 	}()
 
@@ -124,6 +112,4 @@ func Voice_2_text() {
 		errCheck(err)
 	}
 	errCheck(stream.Stop())
-
-  Send_2_wit()
 }

@@ -6,6 +6,6 @@ import "./src"
 
 
 func main() {
-	// src.Voice_2_text()
-	src.Send_2_wit()
+	src.Voice_2_text()
+
 }
