@@ -6,7 +6,6 @@ if __name__ == "__main__":
     #print('Nummer 1\n\n')
     #text, _, _ = voice_2_text()
     #print(text)
-    #if text is not None and text != '':    
+    #if text is not None and text != '':
     #    text_2_voice2(text)
-    text_2_voice2("HALLO")
-    
+    text_2_voice("HALLO")

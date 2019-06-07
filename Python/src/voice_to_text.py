@@ -19,7 +19,7 @@ def voice_2_text():
     with sr.Microphone() as source:
         print("Speak:")
         audio = r.listen(source)
-        print("Finished
+        print("Finished")
     try:
         value = r.recognize_wit(audio, wit_access_token)
         time2 = time.time()
