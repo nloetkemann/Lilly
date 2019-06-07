@@ -6,14 +6,10 @@ import time
 
 engine = pyttsx3.init()
 engine.setProperty('rate', 150)
-voices = engine.getProperty('voices')
-engine.setProperty('voices', voices[6].id)
-print(voices)
-
-
 
 
 # uses googles tts creates a mp3 and deletes it
+# takes 4,7 sec for a "Hello"
 def text_2_voice(text, remove=True):
     time1 = time.time()
     file = 'sounds/temp.mp3'
@@ -26,7 +22,8 @@ def text_2_voice(text, remove=True):
     print(time2 - time1)
 
 
-# doesnt create a file
+# doesnt create a file and faster
+# takes 0.8 sec for a "Hello"
 def text_2_voice2(text):
     time1 = time.time()
     engine.say(text)
