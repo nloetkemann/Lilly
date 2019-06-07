@@ -11,16 +11,13 @@ engine.setProperty('rate', 150)
 
 
 # uses googles tts creates a mp3 and deletes it
-# takes 4,7 sec for a "Hello"
+# takes 2,13 sec for a "Hello"
 def text_2_voice(text, remove=True):
     time1 = time.time()
     file = 'sounds/temp.mp3'
     tts = gTTS(text=text, lang='de')
-    print("nach gtts " + str(time.time() - time1))
     tts.save(file)
-    print("nach save " + str(time.time() - time1))
     os.system("mpg123 " + file)
-    print("nach play " + str(time.time() - time1))
     if remove:
         os.remove(file)
     time2 = time.time()
