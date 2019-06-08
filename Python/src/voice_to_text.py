@@ -13,21 +13,22 @@ wit_access_token = os.environ['WIT_TOKEN']
 
 
 # records from mic and returns what it understood
+# recognition from google is 1,4 sec faster
 def voice_2_text():
-    time1 = time.time()
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Speak:")
         audio = r.listen(source)
         print("Finished")
     try:
+        time1 = time.time()
         value = r.recognize_wit(audio, wit_access_token)
-        time2 = time.time()
-        print(time2 - time1)
+        print(time.time() - time1)
+        # time1 = time.time()
+        # value = r.recognize_google(audio, language="de")
+        # print(time.time() - time1)
         return value, None, None
     except Exception as e:
-        time2 = time.time()
-        print(time2 - time1)
         print(e)
         return None, None, None
 
