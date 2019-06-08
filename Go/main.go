@@ -6,6 +6,8 @@ import "./src"
 
 
 func main() {
-	src.Voice_2_text()
-
+	// src.Voice_2_text()
+	c := make(chan int)
+	go src.Send_2_wit(c, "sounds/temp.wav")
+	<-c
 }

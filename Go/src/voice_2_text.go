@@ -43,9 +43,6 @@ func errCheck(err error) {
 func Voice_2_text() {
   audioFileName := "sounds/temp.wav"
 
-
-	fmt.Println("Recording. Press ESC to quit.")
-
 	waveFile, err := os.Create(audioFileName)
 	errCheck(err)
 
@@ -54,8 +51,6 @@ func Voice_2_text() {
 	outputChannels := 0
 	sampleRate := 44100
 	framesPerBuffer := make([]byte, 64)
-
-	// init PortAudio
 
 	portaudio.Initialize()
 	//defer portaudio.Terminate()
@@ -76,19 +71,32 @@ func Voice_2_text() {
 	waveWriter, err := wave.NewWriter(param)
 	errCheck(err)
 
-	defer waveWriter.Close()
-	defer portaudio.Terminate()
-	defer stream.Close()
+	// defer waveWriter.Close()
+	// defer portaudio.Terminate()
+	// defer stream.Close()
 
+	// go func() {
+	// 	time.Sleep(4000 * time.Millisecond)
+	// 	fmt.Println("\nCleaning up ...")
+	// 	stream.Stop()
+	// 	stream.Close()
+	// 	c := make(chan int)
+	// 	Send_2_wit(c, audioFileName)
+	// 	<-c
+	// 	os.Exit(0)
+	//
+	// }()
 	go func() {
 		time.Sleep(4000 * time.Millisecond)
-		fmt.Println("\nCleaning up ...")
-		stream.Stop()
-		c := make(chan int)
-		Send_2_wit(c, audioFileName)
-		<-c
+		fmt.Println()
+		fmt.Println("Cleaning up ...")
+		waveWriter.Close()
+		stream.Close()
+		portaudio.Terminate()
+		// c := make(chan int)
+		// Send_2_wit(c, audioFileName)
+		// <-c
 		os.Exit(0)
-
 	}()
 
 	// recording in progress ticker. From good old DOS days.
@@ -103,7 +111,11 @@ func Voice_2_text() {
 	// start reading from microphone
 	errCheck(stream.Start())
 	for {
-		errCheck(stream.Read())
+
+		error := stream.Read()
+		if error != nil {
+			return
+		}
 
 		fmt.Printf("\rRecording is live now. Say something to your microphone! [%v]", ticker[rand.Intn(len(ticker)-1)])
 

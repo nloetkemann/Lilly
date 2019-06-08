@@ -4,7 +4,7 @@ import time
 
 if __name__ == "__main__":
     #print('Nummer 1\n\n')
-    #text, _, _ = voice_2_text()
+    # text, _, _ = voice_2_text()
     #print(text)
     #if text is not None and text != '':
     #    text_2_voice2(text)
