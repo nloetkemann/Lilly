@@ -1,8 +1,5 @@
 import json
-import pyaudio
-import wave
 from urllib.request import Request, urlopen
-
 from speech_recognition import AudioData, RequestError, UnknownValueError
 from urllib.error import URLError, HTTPError
 

@@ -1,10 +1,8 @@
 import speech_recognition as sr
 import os
-import requests
-import json
 import time
 
-from src.wit import record_audio, read_audio, recognize_wit
+from src.wit import recognize_wit
 
 # Wit speech API endpoint
 API_ENDPOINT = 'https://api.wit.ai/speech'

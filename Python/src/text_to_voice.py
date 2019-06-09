@@ -1,11 +1,7 @@
 import os
 from gtts import gTTS
 import pyttsx3
-from playsound import playsound
 import time
-from pydub import AudioSegment
-from pydub.playback import play
-from tempfile import TemporaryFile
 
 engine = pyttsx3.init()
 engine.setProperty('rate', 150)
