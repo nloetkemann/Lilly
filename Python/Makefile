@@ -1,7 +1,7 @@
-all:
+all: install
 
 install:
-    pip install -r requirements.txt
+	pip3 install -r requirements.txt
 
 run:
-    python main.py
+	python3 main.py
