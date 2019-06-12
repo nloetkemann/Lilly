@@ -25,6 +25,13 @@ def recognize_wit(audio_data, key, show_all=False):
     result = json.loads(response_text)
 
     # return results
+
     if show_all: return result
-    if "_text" not in result or result["_text"] is None: raise UnknownValueError()
-    return result["_text"]
+    if "_text" not in result or result["_text"] is None: raise UnknownValueError
+    if len(result["entities"].keys()) >0:
+        entity = list(result["entities"].keys())[0]
+        values = []
+        for value in result["entities"][entity]:
+            values.append(value["value"])
+        return result["_text"], entity, values
+    return result["_text"], None, None

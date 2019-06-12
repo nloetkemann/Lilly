@@ -20,9 +20,9 @@ def voice_2_text():
         print("Finished")
     try:
         time1 = time.time()
-        value = recognize_wit(audio, wit_access_token)
+        text, entity, values = recognize_wit(audio, wit_access_token)
         print(time.time() - time1)
-        return value, None, None
+        return text, entity, values
     except Exception as e:
         print(e)
         return None, None, None
