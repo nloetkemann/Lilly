@@ -1,8 +1,5 @@
-# import json
 import os
-# from urllib.request import Request, urlopen
-from speech_recognition import AudioData, RequestError, UnknownValueError
-# from urllib.error import URLError, HTTPError
+from speech_recognition import AudioData, UnknownValueError
 from wit import Wit
 
 from src.wit.wit_response import WitResponse
@@ -41,3 +38,7 @@ def recognize_wit(audio_data, show_all=False):
     result = client.speech(wav_data, None, {'Content-Type': 'audio/wav'})
 
     return __extract_infos(result, show_all)
+
+
+def test():
+    pass
