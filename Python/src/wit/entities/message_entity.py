@@ -18,7 +18,7 @@ class MessageEntity(Entity):
         name = self.get_name_from_message()
         if name is None:
             text = 'Ich weiß leider nicht für wen die Nachricht ist...'
-            return Response(text, self.original_message)
-        text = name + ', ich soll dir das von ' + self.original_message.user + ' sagen:\n' + \
+            return Response(text)
+        text = name + ', ich soll dir das sagen:\n' + \
                self.get_message_from_message()
-        return Response(text, self.original_message)
+        return Response(text)

@@ -1,4 +1,3 @@
-from src.message import Message
 from src.reponse import Response
 from src.wit.entity import Entity
 from pytz import timezone
@@ -18,10 +17,9 @@ class IntentEntity(Entity):
         date = ''
         url = 'https://api.openweathermap.org/data/2.5/forecast?q={},de&units=metric&lang=de&appid=' + weather_key
 
-        def __init__(self, wit_response, message):
+        def __init__(self, wit_response):
             assert isinstance(wit_response, WitResponse)
             self.wit_response = wit_response
-            self.original_message = message
 
         def check_location_in_message(self):
             if self.wit_response.has_key('location'):
@@ -74,36 +72,32 @@ class IntentEntity(Entity):
                 temperature, description = self.weather_today(response)
 
             if temperature is None or description is None:
-                return Response('Ich konnte das Wetter nicht laden...', self.original_message)
+                return Response('Ich konnte das Wetter nicht laden...')
 
             if set_location:
                 if set_date:
                     text = 'Es wird ' + str(int(temperature)) + ' Grad in ' + self.location + 'mit ' + description
-                    return Response(text, self.original_message)
+                    return Response(text)
                 text = 'In ' + self.location + ' ist es ' + str(int(temperature)) + ' Grad mit ' + description
-                return Response(text, self.original_message)
+                return Response(text)
             else:
                 if set_date:
                     text = 'Es wird ' + str(int(temperature)) + ' Grad mit ' + description
-                    return Response(text, self.original_message)
+                    return Response(text)
                 text = 'Es ist ' + str(int(temperature)) + ' Grad mit ' + description
-                return Response(text, self.original_message)
+                return Response(text)
 
     class TimeEntity:
 
-        def __init__(self, message):
-            assert isinstance(message, Message)
-            self.message = message
-
         def get_time(self):
             time = datetime.now(timezone('Europe/Berlin')).time().strftime('%H:%M')
-            return Response('Es ist ' + time, self.message)
+            return Response('Es ist ' + time)
 
     def get_value(self):
         if self.wit_response.get_values(self.keyword)[0] == 'uhr':
-            return self.TimeEntity(self.original_message).get_time()
+            return self.TimeEntity().get_time()
         elif self.wit_response.get_values(self.keyword)[0] == 'wetter':
-            return self.WeatherEntity(self.wit_response, self.original_message).get_weather()
+            return self.WeatherEntity(self.wit_response).get_weather()
 
     def get_response(self):
         return self.get_value()

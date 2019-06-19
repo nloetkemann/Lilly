@@ -2,7 +2,6 @@ from src.reponse import Response
 from src.wit.entity import Entity
 from src.wit.objects.timer_object import TimerObject, time_object_list
 import time
-from src.logic.bot_handler import bothandler
 
 
 class TimerEntity(Entity):
@@ -18,7 +17,7 @@ class TimerEntity(Entity):
                 return
         time_object.delete_from_list()
         text = 'Dein Timer ist vorbei.'
-        bothandler.send_message(Response(text, self.original_message))
+        bothandler.send_message(Response(text))
 
     def __get_unit(self, duration):
         if duration.find('minute') >= 0:
@@ -47,7 +46,7 @@ class TimerEntity(Entity):
                 time_object = TimerObject(self.sleep_funtion, value * unit_value, unit)
                 time_object.start_timer()
                 text = 'Timer gestartet'
-                return Response(text, self.original_message)
+                return Response(text)
         else:
             return Response('Ich weiß nicht für wie lange ich den Timer stellen soll', self.original_message)
 
@@ -70,36 +69,36 @@ class TimerEntity(Entity):
     def status_timer(self):
         time_object = self._get_time_object()
         if time_object is not None:
-            return self.status_to_time(time_object.get_status(), self.original_message)
+            return self.status_to_time(time_object.get_status())
         else:
             if len(time_object_list) == 1:
-                return self.status_to_time(time_object_list[0].get_status(), self.original_message)
+                return self.status_to_time(time_object_list[0].get_status())
             elif len(time_object_list) > 1:
                 keyboard = {}
                 for time_object in time_object_list:
                     keyboard[time_object.name] = 'timer_status;' + time_object.name
-                return Response('Welchen Timer meinst du?', self.original_message, keyboard, type='question')
-            return Response('Es gibt zurzeit keine Timer.', self.original_message)
+                return Response('Welchen Timer meinst du?', keyboard, type='question')
+            return Response('Es gibt zurzeit keine Timer.')
 
     def delete_timer(self):
         time_object = self._get_time_object()
         if time_object is not None:
             time_object.stop_timer()
             text = 'Dein Timer wurde gelöscht.'
-            return Response(text, self.original_message)
+            return Response(text)
         else:
             # es wurde keine Zeit angegeben, also nimmt man den ersten, wenn es nur einen Timer gibt oder man wird
             # gefragt welchen man löschen will
             if len(time_object_list) == 1:
                 time_object_list[0].stop_timer()
                 text = 'Dein Timer wurde gelöscht.'
-                return Response(text, self.original_message)
+                return Response(text)
             elif len(time_object_list) > 1:
                 keyboard = {}
                 for time_object in time_object_list:
                     keyboard[time_object.name] = 'timer_delete;' + time_object.name
-                return Response('Welchen Timer willst du löschen?', self.original_message, keyboard, type='question')
-        return Response('Es gibt keinen Timer', self.original_message)
+                return Response('Welchen Timer willst du löschen?', keyboard, type='question')
+        return Response('Es gibt keinen Timer')
 
     def get_response(self):
         if self.wit_response.get_values(self.keyword)[0] == 'erstelle':

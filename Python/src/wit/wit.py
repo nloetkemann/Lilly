@@ -41,27 +41,3 @@ def recognize_wit(audio_data, show_all=False):
     result = client.speech(wav_data, None, {'Content-Type': 'audio/wav'})
 
     return __extract_infos(result, show_all)
-
-    # url = "https://api.wit.ai/speech?v=20160526"
-    # request = Request(url, data=wav_data,
-    #                   headers={"Authorization": "Bearer {}".format(key), "Content-Type": "audio/wav"})
-    # try:
-    #     response = urlopen(request, timeout=None)
-    # except HTTPError as e:
-    #     raise RequestError("recognition request failed: {}".format(e.reason))
-    # except URLError as e:
-    #     raise RequestError("recognition connection failed: {}".format(e.reason))
-    # response_text = response.read().decode("utf-8")
-    # result = json.loads(response_text)
-    #
-    # # return results
-    #
-    # if show_all: return result
-    # if "_text" not in result or result["_text"] is None: raise UnknownValueError
-    # if len(result["entities"].keys()) > 0:
-    #     entity = list(result["entities"].keys())[0]
-    #     values = []
-    #     for value in result["entities"][entity]:
-    #         values.append(value["value"])
-    #     return result["_text"], entity, values
-    # return result["_text"], None, None

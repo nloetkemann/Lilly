@@ -4,7 +4,6 @@ from src.reponse import Response
 from src.wit.entity import Entity
 from src.wit.objects.notification_object import NotificationObject, notification_object_list
 from pytz import timezone
-from src.logic.bot_handler import bothandler
 import time
 
 
@@ -20,8 +19,8 @@ class NotificationEntity(Entity):
                 notification_object.stop_timer()
                 return
         notification_object.delete_from_list()
-        text = self.original_message.chat_id, 'Ich soll dich daran erinnern \n"' + text_message + '"'
-        bothandler.send_message(Response(text, self.original_message))
+        text = 'Ich soll dich daran erinnern \n"' + text_message + '"'
+        # bothandler.send_message(Response(text)) # # TODO: hier muss man automatisch eine ausgabe machen
 
     def _get_message(self):
         if self.wit_response.has_key('message_erinnerung'):
@@ -71,12 +70,12 @@ class NotificationEntity(Entity):
         time_value, finish_time = self._get_time()
         if finish_time is None:
             text = 'Ich weiß nicht welchen Timer ich löschen soll'
-            return Response(text, self.original_message)
+            return Response(text)
         for notification_object in notification_object_list:
             if notification_object.finish_time == int(finish_time):
                 notification_object.stop_timer()
                 text = 'Deine Erinnerung wurde gelöscht.'
-                return Response(text, self.original_message)
+                return Response(text)
 
     def create_notification(self):
         message = self._get_message()
@@ -85,13 +84,13 @@ class NotificationEntity(Entity):
         time_value, finish_time = self._get_time()
         if time_value is None:
             text = 'Ich weiß nicht zu wann ich die Erinnerung stellen soll'
-            return Response(text, self.original_message)
+            return Response(text)
 
         NotificationObject(self.sleep_funtion, time_value, message, finish_time).start_timer()
-        return Response('Erinnerung erstellt.', self.original_message)
+        return Response('Erinnerung erstellt')
 
     def get_notifications(self):
-        return Response('status', self.original_message)
+        return Response('status')
 
     def get_response(self):
         if self.wit_response.get_values(self.keyword)[0] == 'benachrichtige mich':

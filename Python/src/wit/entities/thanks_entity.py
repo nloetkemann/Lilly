@@ -19,5 +19,5 @@ class ThanksEntity(Entity):
         if value in self.possible_answers:
             index = randint(0, len(self.possible_answers[value]) - 1)
             text = self.possible_answers[value][index]
-            return Response(text, self.original_message)
-        return Response('Du schmeichelst mir', self.original_message)
+            return Response(text)
+        return Response('Du schmeichelst mir')
