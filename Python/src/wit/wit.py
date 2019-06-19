@@ -28,7 +28,7 @@ def recognize_wit(audio_data, key, show_all=False):
 
     if show_all: return result
     if "_text" not in result or result["_text"] is None: raise UnknownValueError
-    if len(result["entities"].keys()) >0:
+    if len(result["entities"].keys()) > 0:
         entity = list(result["entities"].keys())[0]
         values = []
         for value in result["entities"][entity]:
