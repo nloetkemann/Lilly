@@ -6,8 +6,9 @@ from src.logic.handler import MessageHandler
 if __name__ == "__main__":
     wit_response = voice_2_text()
     assert isinstance(wit_response, WitResponse)
-    print(wit_response.get_keywords())
     handler = MessageHandler(wit_response)
     response = handler.handle_message()
-
-    text_2_voice(response.text)
+    if response is not None:
+        text_2_voice(response)
+    else:
+        text_2_voice(Response('ich konnte nicht verstehen was du mir gesagt hast'))
