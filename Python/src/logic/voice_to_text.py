@@ -2,7 +2,7 @@ import speech_recognition as sr
 import os
 import time
 
-from src.wit import recognize_wit
+from src.wit.wit import recognize_wit
 
 # Wit speech API endpoint
 API_ENDPOINT = 'https://api.wit.ai/speech'
