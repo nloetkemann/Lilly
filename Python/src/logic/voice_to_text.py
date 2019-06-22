@@ -16,7 +16,7 @@ def voice_2_text():
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Speak:")
-        audio = r.listen(source, snowboy_configuration=('src/snowball/snowboydetect.py', ['assets/Lilly.pmdl']))  # todo hier muss die snowball configuration hin
+        audio = r.listen(source, snowboy_configuration=('./src/snowball/', ['./assets/Lilly.pmdl']))  # todo hier muss die snowball configuration hin
         print("Finished")
     try:
         time1 = time.time()
