@@ -2,7 +2,7 @@
 
 import collections
 import pyaudio
-import snowboydetect
+import src.snowball.snowboydetect
 import time
 import wave
 import os
