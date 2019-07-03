@@ -1,0 +1,16 @@
+syntax = "proto3";
+package proto.src.grpc.pb;
+
+message FileRequest {
+    string content = 1;
+}
+
+
+message FileResponse {
+    bool success = 1;
+}
+
+service File {
+    rpc UploadFile (stream FileRequest) returns (FileResponse) {
+    }
+}

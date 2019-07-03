@@ -1,7 +1,6 @@
 import json
 import os
 from src.logic.thread import FunctionThread
-from src.message import Message
 
 history_messages = []
 
@@ -28,14 +27,13 @@ class History:
         def load(stop_thread, history_list):
             self.file = open(self.name, 'r')
             for line in self.file.readlines():
-                history_list.append(Message(json.loads(line)))
+                history_list.append(json.loads(line))
             self.file.close()
 
         FunctionThread(load, [history_messages]).start()
 
     def add_to_history(self, message):
         def write_lines(stop_thread, message):
-            assert isinstance(message, Message)
             history_messages.append(message)
             self.file = open(self.name, 'a+')
 

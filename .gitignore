@@ -104,6 +104,10 @@ venv.bak/
 .mypy_cache/
 
 *.wav
+*.mp3
 .idea/
+*.ogg
 
 *.xml
+
+history.txt

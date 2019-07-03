@@ -1,4 +1,3 @@
-from src.message import Message
 from src.wit.wit_response import WitResponse
 
 

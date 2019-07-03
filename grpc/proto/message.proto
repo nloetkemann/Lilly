@@ -1,0 +1,18 @@
+syntax = "proto3";
+package proto.src.grpc.pb;
+
+message MessageRequest {
+    string body = 1;
+}
+
+
+message MessageResponse {
+    string body = 1;
+}
+
+service Message {
+    rpc SingleRequest (MessageRequest) returns (MessageResponse) {
+    }
+    rpc StreamRequest (stream MessageRequest) returns (stream MessageResponse) {
+    }
+}

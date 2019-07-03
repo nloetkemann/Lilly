@@ -1,7 +1,5 @@
-import sys
 import signal
-
-import src.snowball.snowboydecoder
+from src.snowball import snowboydecoder
 
 interrupted = False
 
@@ -15,12 +13,7 @@ def interrupt_callback():
     global interrupted
     return interrupted
 
-# if len(sys.argv) == 1:
-#     print("Error: need to specify model name")
-#     print("Usage: python demo.py your.model")
-#     sys.exit(-1)
-#
-# model = sys.argv[1]
+
 model = 'src/assets/Lilly.pmdl'
 
 # capture SIGINT signal, e.g., Ctrl+C
