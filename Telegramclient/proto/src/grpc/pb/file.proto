@@ -2,12 +2,12 @@ syntax = "proto3";
 package proto.src.grpc.pb;
 
 message FileRequest {
-    string content = 1;
+    bytes buffer = 1;
 }
 
 
 message FileResponse {
-    bool success = 1;
+    int32 length = 1;
 }
 
 service File {

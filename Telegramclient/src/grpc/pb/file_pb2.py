@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='proto.src.grpc.pb',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x16src/grpc/pb/file.proto\x12\x11proto.src.grpc.pb\"\x1e\n\x0b\x46ileRequest\x12\x0f\n\x07\x63ontent\x18\x01 \x01(\t\"\x1f\n\x0c\x46ileResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32Y\n\x04\x46ile\x12Q\n\nUploadFile\x12\x1e.proto.src.grpc.pb.FileRequest\x1a\x1f.proto.src.grpc.pb.FileResponse\"\x00(\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x16src/grpc/pb/file.proto\x12\x11proto.src.grpc.pb\"\x1d\n\x0b\x46ileRequest\x12\x0e\n\x06\x62uffer\x18\x01 \x01(\x0c\"\x1e\n\x0c\x46ileResponse\x12\x0e\n\x06length\x18\x01 \x01(\x05\x32Y\n\x04\x46ile\x12Q\n\nUploadFile\x12\x1e.proto.src.grpc.pb.FileRequest\x1a\x1f.proto.src.grpc.pb.FileResponse\"\x00(\x01\x62\x06proto3')
 )
 
 
@@ -34,9 +34,9 @@ _FILEREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='content', full_name='proto.src.grpc.pb.FileRequest.content', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='buffer', full_name='proto.src.grpc.pb.FileRequest.buffer', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -53,7 +53,7 @@ _FILEREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=45,
-  serialized_end=75,
+  serialized_end=74,
 )
 
 
@@ -65,9 +65,9 @@ _FILERESPONSE = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='success', full_name='proto.src.grpc.pb.FileResponse.success', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
+      name='length', full_name='proto.src.grpc.pb.FileResponse.length', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -83,8 +83,8 @@ _FILERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=77,
-  serialized_end=108,
+  serialized_start=76,
+  serialized_end=106,
 )
 
 DESCRIPTOR.message_types_by_name['FileRequest'] = _FILEREQUEST
@@ -113,8 +113,8 @@ _FILE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=110,
-  serialized_end=199,
+  serialized_start=108,
+  serialized_end=197,
   methods=[
   _descriptor.MethodDescriptor(
     name='UploadFile',
