@@ -6,6 +6,8 @@ from src.logic.reponse import Response
 
 client = Client()
 
+temp_dir = '../temp/'
+
 
 def on_chat_message(message):
     message = Message(message)
@@ -14,7 +16,11 @@ def on_chat_message(message):
     elif message.is_text():
         response_text = client.single_message(message.get_text())
     elif message.is_voice():
-        response_text = 'Ist noch nicht fertig'
+        file_id = message.get_file_id()
+        file_type = message.get_atr('mime_type', 'voice').split('/')[1]
+        filename = temp_dir + file_id + '.' + file_type
+        message.download_file(filename)
+        response_text = client.upload_file(filename)
     elif message.is_document():
         response_text = 'Ist auch noch nicht fertig'
     else:

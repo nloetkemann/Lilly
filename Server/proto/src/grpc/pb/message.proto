@@ -3,6 +3,7 @@ package proto.src.grpc.pb;
 
 message MessageRequest {
     string body = 1;
+    string type = 2;
 }
 
 
