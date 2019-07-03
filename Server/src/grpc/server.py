@@ -22,7 +22,3 @@ class Server:
                 time.sleep(86400)
         except KeyboardInterrupt:
             self.server.stop(0)
-
-
-server = Server()
-server.start()
