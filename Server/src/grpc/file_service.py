@@ -15,7 +15,6 @@ class FileServicer(file_pb2_grpc.FileServicer):
             filename = self.temp_dir + name
             with open(filename, 'wb') as f:
                 for chunk in chunks:
-                    print('hallo')
                     if not chunk.HasField('name'):
                         f.write(chunk.buffer)
             return filename
