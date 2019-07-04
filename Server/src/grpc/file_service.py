@@ -1,11 +1,8 @@
-import os
-import time
-
 import src.grpc.pb.file_pb2_grpc as file_pb2_grpc
 from src.grpc.pb import file_pb2
 import itertools
 
-from src.logic.handler import FileHandler, MessageHandler
+from src.logic.handler import MessageHandler
 from src.wit.wit import send_audio_file
 
 
