@@ -4,8 +4,6 @@ from src.wit.entities.notification_entity import NotificationEntity
 from src.wit.entities.search_entity import SearchEntity
 from src.wit.entities.thanks_entity import ThanksEntity
 from src.wit.wit_response import WitResponse
-# from src.logic.message import Message
-from src.wit.wit import send_audio_file
 from src.wit.entities.intent_entity import IntentEntity
 from src.wit.entities.message_entity import MessageEntity
 from src.wit.entities.timer_entity import TimerEntity
@@ -42,21 +40,8 @@ class MessageHandler:
         response = command_entity.get_response()
         return response
 
-    # def handle_callback(self):
-    #     old_message_id = bothandler.get_message_identifier(self.message.get_atr('message'))
-    #     data = self.message.get_atr('data')
-    #     text = Callback().callback_action(data)
-    #     bothandler.answer_callback(self.message.chat_id, 'Erledigt')
-    #     if text != '' and text is not None:
-    #         bothandler.edit_message(old_message_id, text)
-    #     else:
-    #         bothandler.delete_message(old_message_id)
-
     def handle_message(self):
         Class = None
-        # if self.message.is_voice_file and CommandEntity.get_voice_mode(CommandEntity) == 't' and self.wit_response.text != '':
-        #     return Response(self.wit_response.text, self.message)
-
         if not self.wit_response.is_success():
             return Response('Ich weiß nicht, was ich machen soll...')
 
@@ -70,18 +55,3 @@ class MessageHandler:
         else:
             # response = MessageHandler(response).get_response()
             return Response('Ich kann mit der Eingabe leider nichts anfangen.')
-
-
-class FileHandler:
-    def __init__(self):
-        self.temp_dir = 'temp/'
-
-    def download_file(self):
-        pass
-
-    def handle_file(self, message, type):
-        filename = self.temp_dir + message.get_file_id() + '.' + type.split('/')[1]
-        message.download_file(filename)
-
-        # send to wit and get response
-        return send_audio_file(filename)

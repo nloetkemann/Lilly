@@ -8,7 +8,7 @@ from src.grpc.pb.message_pb2 import MessageRequest
 
 
 class Client:
-    CHUNK_SIZE = 1024 * 1024
+    CHUNK_SIZE = 1024 * 512
 
     def __init__(self):
         channel = grpc.insecure_channel('localhost:50051')
@@ -24,10 +24,11 @@ class Client:
         def chunk_file():
             yield FileRequest(name=filename)
             with open(filename, 'rb') as file:
-                piece = file.read(self.CHUNK_SIZE)
-                if len(piece) == 0:
-                    return
-                yield FileRequest(buffer=piece)
+                while True:
+                    piece = file.read(self.CHUNK_SIZE)
+                    if len(piece) == 0:
+                        return
+                    yield FileRequest(buffer=piece)
         result = self.file_stub.UploadFile(chunk_file())
         os.remove(filename)
         return result.text
