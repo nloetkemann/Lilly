@@ -2,7 +2,10 @@ syntax = "proto3";
 package proto.src.grpc.pb;
 
 message FileRequest {
-    bytes buffer = 1;
+    oneof type {
+        bytes buffer = 1;
+        string name = 2;
+    }
 }
 
 

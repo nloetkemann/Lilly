@@ -1,3 +1,5 @@
+import os
+
 import grpc
 import src.grpc.pb.message_pb2_grpc as message_pb2_grpc
 import src.grpc.pb.file_pb2_grpc as file_pb2_grpc
@@ -20,12 +22,14 @@ class Client:
 
     def upload_file(self, filename):
         def chunk_file():
+            yield FileRequest(name=filename)
             with open(filename, 'rb') as file:
                 piece = file.read(self.CHUNK_SIZE)
                 if len(piece) == 0:
                     return
                 yield FileRequest(buffer=piece)
         result = self.file_stub.UploadFile(chunk_file())
+        os.remove(filename)
         return result.length
 
     def stream_message(self, text_array):
