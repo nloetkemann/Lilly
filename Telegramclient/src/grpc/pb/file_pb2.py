@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='proto.src.grpc.pb',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x16src/grpc/pb/file.proto\x12\x11proto.src.grpc.pb\"7\n\x0b\x46ileRequest\x12\x10\n\x06\x62uffer\x18\x01 \x01(\x0cH\x00\x12\x0e\n\x04name\x18\x02 \x01(\tH\x00\x42\x06\n\x04type\"\x1e\n\x0c\x46ileResponse\x12\x0e\n\x06length\x18\x01 \x01(\x05\x32Y\n\x04\x46ile\x12Q\n\nUploadFile\x12\x1e.proto.src.grpc.pb.FileRequest\x1a\x1f.proto.src.grpc.pb.FileResponse\"\x00(\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x16src/grpc/pb/file.proto\x12\x11proto.src.grpc.pb\"7\n\x0b\x46ileRequest\x12\x10\n\x06\x62uffer\x18\x01 \x01(\x0cH\x00\x12\x0e\n\x04name\x18\x02 \x01(\tH\x00\x42\x06\n\x04type\"\x1c\n\x0c\x46ileResponse\x12\x0c\n\x04text\x18\x01 \x01(\t2Y\n\x04\x46ile\x12Q\n\nUploadFile\x12\x1e.proto.src.grpc.pb.FileRequest\x1a\x1f.proto.src.grpc.pb.FileResponse\"\x00(\x01\x62\x06proto3')
 )
 
 
@@ -75,9 +75,9 @@ _FILERESPONSE = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='length', full_name='proto.src.grpc.pb.FileResponse.length', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
+      name='text', full_name='proto.src.grpc.pb.FileResponse.text', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -94,7 +94,7 @@ _FILERESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=102,
-  serialized_end=132,
+  serialized_end=130,
 )
 
 _FILEREQUEST.oneofs_by_name['type'].fields.append(
@@ -129,8 +129,8 @@ _FILE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=134,
-  serialized_end=223,
+  serialized_start=132,
+  serialized_end=221,
   methods=[
   _descriptor.MethodDescriptor(
     name='UploadFile',

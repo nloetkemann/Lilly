@@ -1,7 +1,12 @@
 import os
+import time
+
 import src.grpc.pb.file_pb2_grpc as file_pb2_grpc
 from src.grpc.pb import file_pb2
 import itertools
+
+from src.logic.handler import FileHandler, MessageHandler
+from src.wit.wit import send_audio_file
 
 
 class FileServicer(file_pb2_grpc.FileServicer):
@@ -16,7 +21,7 @@ class FileServicer(file_pb2_grpc.FileServicer):
                     if not chunk.HasField('name'):
                         f.write(chunk.buffer)
             return filename
-
         filename = save_chunks_to_file(request_iterator)
-        length = os.path.getsize(filename)
-        return file_pb2.FileResponse(length=length)
+        result = send_audio_file(filename)
+        response = MessageHandler(result).handle_message()
+        return file_pb2.FileResponse(text=response.text)

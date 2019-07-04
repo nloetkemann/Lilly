@@ -10,7 +10,7 @@ message FileRequest {
 
 
 message FileResponse {
-    int32 length = 1;
+    string text = 1;
 }
 
 service File {

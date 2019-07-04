@@ -30,7 +30,7 @@ class Client:
                 yield FileRequest(buffer=piece)
         result = self.file_stub.UploadFile(chunk_file())
         os.remove(filename)
-        return result.length
+        return result.text
 
     def stream_message(self, text_array):
         def gen_request(messages, origin):
