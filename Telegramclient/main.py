@@ -1,6 +1,6 @@
 from telepot.loop import MessageLoop
 from src.logic.bot_handler import bothandler
-from src.logic.client import Client, temp_dir
+from src.grpc.client import Client, temp_dir
 from src.logic.message import Message
 
 client = Client()
