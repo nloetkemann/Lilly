@@ -1,4 +1,6 @@
 from datetime import datetime
+
+from src.logic.message_queue import MessageQueue
 from src.logic.reponse import Response
 from src.wit.entity import Entity
 from src.wit.objects.notification_object import NotificationObject, notification_object_list
@@ -19,7 +21,7 @@ class NotificationEntity(Entity):
                 return
         notification_object.delete_from_list()
         text = 'Ich soll dich daran erinnern \n"' + text_message + '"'
-        Response(text)  # todo hier muss man irgendwie die nachricht senden
+        MessageQueue.add(Response(text), self.client_type)
 
     def _get_message(self):
         if self.wit_response.has_key('message_erinnerung'):
