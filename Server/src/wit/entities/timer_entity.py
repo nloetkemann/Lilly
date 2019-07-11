@@ -1,3 +1,4 @@
+from src.logic.message_queue import MessageQueue
 from src.logic.reponse import Response
 from src.wit.entity import Entity
 from src.wit.objects.timer_object import TimerObject, time_object_list
@@ -18,7 +19,7 @@ class TimerEntity(Entity):
                 return
         time_object.delete_from_list()
         text = 'Dein Timer ist vorbei.'
-        Response(text)   # todo hier muss wieder die nachricht senden
+        MessageQueue.add(Response(text), self.client_type)
 
     def __get_unit(self, duration):
         if duration.find('minute') >= 0:

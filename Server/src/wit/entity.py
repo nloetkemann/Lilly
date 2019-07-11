@@ -1,14 +1,15 @@
+from src.grpc.pb.message_pb2 import ClientType
 from src.wit.wit_response import WitResponse
 
 
 class Entity:
     keyword = ''
 
-    def __init__(self, wit_response):
+    def __init__(self, wit_response, client_type):
         assert isinstance(wit_response, WitResponse)
-        # assert isinstance(origianl_message, Message)
+        assert isinstance(client_type, ClientType)
         self.wit_response = wit_response
-        # self.original_message = origianl_message
+        self.client_type = client_type
 
     def _welcome(self, welcome_entity):
         key = 'begruessung'

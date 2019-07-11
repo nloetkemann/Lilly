@@ -1,8 +1,8 @@
 import src.grpc.pb.file_pb2_grpc as file_pb2_grpc
-from src.grpc.pb import file_pb2, message_pb2
+from src.grpc.pb import message_pb2
 import itertools
-from src.grpc.message_service import response_queue
 from src.logic.handler import MessageHandler
+from src.logic.message_queue import MessageQueue
 from src.wit.wit import send_audio_file
 
 
@@ -23,6 +23,6 @@ class FileServicer(file_pb2_grpc.FileServicer):
 
         filename, client_type = save_chunks_to_file(request_iterator)
         result = send_audio_file(filename)
-        response = MessageHandler(result).handle_message()
-        response_queue.append((response, client_type))
+        response = MessageHandler(result, client_type).handle_message()
+        MessageQueue.add(response, client_type)
         return message_pb2.Success(success=True)
