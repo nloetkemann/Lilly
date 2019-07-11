@@ -17,11 +17,11 @@ class MessageStub(object):
     self.SingleRequest = channel.unary_unary(
         '/proto.src.grpc.pb.Message/SingleRequest',
         request_serializer=src_dot_grpc_dot_pb_dot_message__pb2.MessageRequest.SerializeToString,
-        response_deserializer=src_dot_grpc_dot_pb_dot_message__pb2.MessageResponse.FromString,
+        response_deserializer=src_dot_grpc_dot_pb_dot_message__pb2.Success.FromString,
         )
-    self.StreamRequest = channel.stream_stream(
+    self.StreamRequest = channel.unary_stream(
         '/proto.src.grpc.pb.Message/StreamRequest',
-        request_serializer=src_dot_grpc_dot_pb_dot_message__pb2.MessageRequest.SerializeToString,
+        request_serializer=src_dot_grpc_dot_pb_dot_message__pb2.Empty.SerializeToString,
         response_deserializer=src_dot_grpc_dot_pb_dot_message__pb2.MessageResponse.FromString,
         )
 
@@ -37,7 +37,7 @@ class MessageServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def StreamRequest(self, request_iterator, context):
+  def StreamRequest(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -50,11 +50,11 @@ def add_MessageServicer_to_server(servicer, server):
       'SingleRequest': grpc.unary_unary_rpc_method_handler(
           servicer.SingleRequest,
           request_deserializer=src_dot_grpc_dot_pb_dot_message__pb2.MessageRequest.FromString,
-          response_serializer=src_dot_grpc_dot_pb_dot_message__pb2.MessageResponse.SerializeToString,
+          response_serializer=src_dot_grpc_dot_pb_dot_message__pb2.Success.SerializeToString,
       ),
-      'StreamRequest': grpc.stream_stream_rpc_method_handler(
+      'StreamRequest': grpc.unary_stream_rpc_method_handler(
           servicer.StreamRequest,
-          request_deserializer=src_dot_grpc_dot_pb_dot_message__pb2.MessageRequest.FromString,
+          request_deserializer=src_dot_grpc_dot_pb_dot_message__pb2.Empty.FromString,
           response_serializer=src_dot_grpc_dot_pb_dot_message__pb2.MessageResponse.SerializeToString,
       ),
   }

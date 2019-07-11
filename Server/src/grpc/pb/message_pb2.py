@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='proto.src.grpc.pb',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x19src/grpc/pb/message.proto\x12\x11proto.src.grpc.pb\",\n\x0eMessageRequest\x12\x0c\n\x04\x62ody\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\"\x1f\n\x0fMessageResponse\x12\x0c\n\x04\x62ody\x18\x01 \x01(\t2\xc1\x01\n\x07Message\x12X\n\rSingleRequest\x12!.proto.src.grpc.pb.MessageRequest\x1a\".proto.src.grpc.pb.MessageResponse\"\x00\x12\\\n\rStreamRequest\x12!.proto.src.grpc.pb.MessageRequest\x1a\".proto.src.grpc.pb.MessageResponse\"\x00(\x01\x30\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x19src/grpc/pb/message.proto\x12\x11proto.src.grpc.pb\"`\n\x0eMessageRequest\x12\x0c\n\x04\x62ody\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x32\n\x0b\x63lient_type\x18\x03 \x01(\x0b\x32\x1d.proto.src.grpc.pb.ClientType\"\x07\n\x05\x45mpty\"\x1a\n\x07Success\x12\x0f\n\x07success\x18\x01 \x01(\x08\"\xad\x01\n\nClientType\x12<\n\ttelegramm\x18\x01 \x01(\x0b\x32\'.proto.src.grpc.pb.ClientType.TelegrammH\x00\x12.\n\x02la\x18\x02 \x01(\x0b\x32 .proto.src.grpc.pb.ClientType.LAH\x00\x1a\x04\n\x02LA\x1a\x1c\n\tTelegramm\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\x05\x42\r\n\x0b\x63lient_type\"S\n\x0fMessageResponse\x12\x0c\n\x04\x62ody\x18\x01 \x01(\t\x12\x32\n\x0b\x63lient_type\x18\x02 \x01(\x0b\x32\x1d.proto.src.grpc.pb.ClientType2\xae\x01\n\x07Message\x12P\n\rSingleRequest\x12!.proto.src.grpc.pb.MessageRequest\x1a\x1a.proto.src.grpc.pb.Success\"\x00\x12Q\n\rStreamRequest\x12\x18.proto.src.grpc.pb.Empty\x1a\".proto.src.grpc.pb.MessageResponse\"\x00\x30\x01\x62\x06proto3')
 )
 
 
@@ -47,6 +47,13 @@ _MESSAGEREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='client_type', full_name='proto.src.grpc.pb.MessageRequest.client_type', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -60,7 +67,156 @@ _MESSAGEREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=48,
-  serialized_end=92,
+  serialized_end=144,
+)
+
+
+_EMPTY = _descriptor.Descriptor(
+  name='Empty',
+  full_name='proto.src.grpc.pb.Empty',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=146,
+  serialized_end=153,
+)
+
+
+_SUCCESS = _descriptor.Descriptor(
+  name='Success',
+  full_name='proto.src.grpc.pb.Success',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='success', full_name='proto.src.grpc.pb.Success.success', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=155,
+  serialized_end=181,
+)
+
+
+_CLIENTTYPE_LA = _descriptor.Descriptor(
+  name='LA',
+  full_name='proto.src.grpc.pb.ClientType.LA',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=308,
+  serialized_end=312,
+)
+
+_CLIENTTYPE_TELEGRAMM = _descriptor.Descriptor(
+  name='Telegramm',
+  full_name='proto.src.grpc.pb.ClientType.Telegramm',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='chat_id', full_name='proto.src.grpc.pb.ClientType.Telegramm.chat_id', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=314,
+  serialized_end=342,
+)
+
+_CLIENTTYPE = _descriptor.Descriptor(
+  name='ClientType',
+  full_name='proto.src.grpc.pb.ClientType',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='telegramm', full_name='proto.src.grpc.pb.ClientType.telegramm', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='la', full_name='proto.src.grpc.pb.ClientType.la', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[_CLIENTTYPE_LA, _CLIENTTYPE_TELEGRAMM, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+    _descriptor.OneofDescriptor(
+      name='client_type', full_name='proto.src.grpc.pb.ClientType.client_type',
+      index=0, containing_type=None, fields=[]),
+  ],
+  serialized_start=184,
+  serialized_end=357,
 )
 
 
@@ -78,6 +234,13 @@ _MESSAGERESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='client_type', full_name='proto.src.grpc.pb.MessageResponse.client_type', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -90,11 +253,26 @@ _MESSAGERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=94,
-  serialized_end=125,
+  serialized_start=359,
+  serialized_end=442,
 )
 
+_MESSAGEREQUEST.fields_by_name['client_type'].message_type = _CLIENTTYPE
+_CLIENTTYPE_LA.containing_type = _CLIENTTYPE
+_CLIENTTYPE_TELEGRAMM.containing_type = _CLIENTTYPE
+_CLIENTTYPE.fields_by_name['telegramm'].message_type = _CLIENTTYPE_TELEGRAMM
+_CLIENTTYPE.fields_by_name['la'].message_type = _CLIENTTYPE_LA
+_CLIENTTYPE.oneofs_by_name['client_type'].fields.append(
+  _CLIENTTYPE.fields_by_name['telegramm'])
+_CLIENTTYPE.fields_by_name['telegramm'].containing_oneof = _CLIENTTYPE.oneofs_by_name['client_type']
+_CLIENTTYPE.oneofs_by_name['client_type'].fields.append(
+  _CLIENTTYPE.fields_by_name['la'])
+_CLIENTTYPE.fields_by_name['la'].containing_oneof = _CLIENTTYPE.oneofs_by_name['client_type']
+_MESSAGERESPONSE.fields_by_name['client_type'].message_type = _CLIENTTYPE
 DESCRIPTOR.message_types_by_name['MessageRequest'] = _MESSAGEREQUEST
+DESCRIPTOR.message_types_by_name['Empty'] = _EMPTY
+DESCRIPTOR.message_types_by_name['Success'] = _SUCCESS
+DESCRIPTOR.message_types_by_name['ClientType'] = _CLIENTTYPE
 DESCRIPTOR.message_types_by_name['MessageResponse'] = _MESSAGERESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -104,6 +282,43 @@ MessageRequest = _reflection.GeneratedProtocolMessageType('MessageRequest', (_me
   # @@protoc_insertion_point(class_scope:proto.src.grpc.pb.MessageRequest)
   ))
 _sym_db.RegisterMessage(MessageRequest)
+
+Empty = _reflection.GeneratedProtocolMessageType('Empty', (_message.Message,), dict(
+  DESCRIPTOR = _EMPTY,
+  __module__ = 'src.grpc.pb.message_pb2'
+  # @@protoc_insertion_point(class_scope:proto.src.grpc.pb.Empty)
+  ))
+_sym_db.RegisterMessage(Empty)
+
+Success = _reflection.GeneratedProtocolMessageType('Success', (_message.Message,), dict(
+  DESCRIPTOR = _SUCCESS,
+  __module__ = 'src.grpc.pb.message_pb2'
+  # @@protoc_insertion_point(class_scope:proto.src.grpc.pb.Success)
+  ))
+_sym_db.RegisterMessage(Success)
+
+ClientType = _reflection.GeneratedProtocolMessageType('ClientType', (_message.Message,), dict(
+
+  LA = _reflection.GeneratedProtocolMessageType('LA', (_message.Message,), dict(
+    DESCRIPTOR = _CLIENTTYPE_LA,
+    __module__ = 'src.grpc.pb.message_pb2'
+    # @@protoc_insertion_point(class_scope:proto.src.grpc.pb.ClientType.LA)
+    ))
+  ,
+
+  Telegramm = _reflection.GeneratedProtocolMessageType('Telegramm', (_message.Message,), dict(
+    DESCRIPTOR = _CLIENTTYPE_TELEGRAMM,
+    __module__ = 'src.grpc.pb.message_pb2'
+    # @@protoc_insertion_point(class_scope:proto.src.grpc.pb.ClientType.Telegramm)
+    ))
+  ,
+  DESCRIPTOR = _CLIENTTYPE,
+  __module__ = 'src.grpc.pb.message_pb2'
+  # @@protoc_insertion_point(class_scope:proto.src.grpc.pb.ClientType)
+  ))
+_sym_db.RegisterMessage(ClientType)
+_sym_db.RegisterMessage(ClientType.LA)
+_sym_db.RegisterMessage(ClientType.Telegramm)
 
 MessageResponse = _reflection.GeneratedProtocolMessageType('MessageResponse', (_message.Message,), dict(
   DESCRIPTOR = _MESSAGERESPONSE,
@@ -120,8 +335,8 @@ _MESSAGE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=128,
-  serialized_end=321,
+  serialized_start=445,
+  serialized_end=619,
   methods=[
   _descriptor.MethodDescriptor(
     name='SingleRequest',
@@ -129,7 +344,7 @@ _MESSAGE = _descriptor.ServiceDescriptor(
     index=0,
     containing_service=None,
     input_type=_MESSAGEREQUEST,
-    output_type=_MESSAGERESPONSE,
+    output_type=_SUCCESS,
     serialized_options=None,
   ),
   _descriptor.MethodDescriptor(
@@ -137,7 +352,7 @@ _MESSAGE = _descriptor.ServiceDescriptor(
     full_name='proto.src.grpc.pb.Message.StreamRequest',
     index=1,
     containing_service=None,
-    input_type=_MESSAGEREQUEST,
+    input_type=_EMPTY,
     output_type=_MESSAGERESPONSE,
     serialized_options=None,
   ),

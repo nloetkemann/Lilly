@@ -4,7 +4,7 @@ import grpc
 import src.grpc.pb.message_pb2_grpc as message_pb2_grpc
 import src.grpc.pb.file_pb2_grpc as file_pb2_grpc
 from src.grpc.pb.file_pb2 import FileRequest
-from src.grpc.pb.message_pb2 import MessageRequest
+from src.grpc.pb.message_pb2 import MessageRequest, Empty, ClientType
 
 
 class Client:
@@ -15,10 +15,11 @@ class Client:
         self.message_stub = message_pb2_grpc.MessageStub(channel)
         self.file_stub = file_pb2_grpc.FileStub(channel)
 
-    def single_message(self, text, type='text'):
-        request = MessageRequest(body=text, type=type)
+    def single_message(self, text, chat_id, type='text'):
+        client_type = ClientType(telegramm=ClientType.Telegramm(chat_id=chat_id))
+        request = MessageRequest(body=text, type=type, client_type=client_type)
         feature = self.message_stub.SingleRequest(request)
-        return feature.body
+        return feature.success
 
     def upload_file(self, filename):
         def chunk_file():
@@ -29,18 +30,11 @@ class Client:
                     if len(piece) == 0:
                         return
                     yield FileRequest(buffer=piece)
+
         result = self.file_stub.UploadFile(chunk_file())
         os.remove(filename)
         return result.text
 
-    def stream_message(self, text_array):
-        def gen_request(messages, origin):
-            for text in messages:
-                request = MessageRequest(body=text, origin=origin)
-                yield request
-
-        it = self.message_stub.StreamRequest(gen_request(text_array, 'was geht ab'))
-        array = []
-        for r in it:
-            array.append(r.body)
-        return array
+    def stream_message(self):
+        for r in self.message_stub.StreamRequest(Empty()):
+            yield (r.body, r.client_type)
