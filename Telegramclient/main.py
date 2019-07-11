@@ -8,8 +8,6 @@ client = Client()
 
 temp_dir = '../temp/'
 
-message_list = []
-
 
 def wait_for_response(stop_thread):
     responses = client.stream_message()

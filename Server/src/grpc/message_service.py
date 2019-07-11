@@ -14,11 +14,8 @@ class MessageServicer(message_pb2_grpc.MessageServicer):
         except Exception as e:
             print(e)
             return message_pb2.Success(success=False)
-        #     return message_pb2.MessageResponse(body='Hier ging was schief')
         self.response_queue.append((response, request.client_type))
-        print(self.response_queue)
         return message_pb2.Success(success=True)
-        # return message_pb2.MessageResponse(body=response.text)
 
     def StreamRequest(self, request_iterator, context):
         while True:
@@ -27,4 +24,3 @@ class MessageServicer(message_pb2_grpc.MessageServicer):
                 client_type = (self.response_queue[0])[1]
                 self.response_queue.pop(0)
                 yield message_pb2.MessageResponse(body=response.text, client_type=client_type)
-        # message_pb2.MessageResponse(body='erfolgreich')
