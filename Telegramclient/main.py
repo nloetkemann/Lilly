@@ -2,18 +2,8 @@ from telepot.loop import MessageLoop
 from src.logic.bot_handler import bothandler
 from src.logic.client import Client, temp_dir
 from src.logic.message import Message
-from src.logic.thread import FunctionThread
 
 client = Client()
-
-
-def wait_for_response(stop_thread):  # todo muss noch stopthread einbauen
-    responses = client.stream_message()
-    for response in responses:
-        client_type = response[1]
-        if client_type.telegramm is not None and client_type.telegramm != '':
-            chat_id = client_type.telegramm.chat_id
-            bothandler.bot.sendMessage(chat_id, response[0])
 
 
 def on_chat_message(message):
@@ -54,9 +44,6 @@ def on_callback(message):
 
 
 print('Bot is running')
-
-thread = FunctionThread(wait_for_response)
-thread.start()
 
 MessageLoop(bothandler.bot, {
     'chat': on_chat_message,
