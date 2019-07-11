@@ -13,6 +13,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from src.grpc.pb import message_pb2 as src_dot_grpc_dot_pb_dot_message__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -20,8 +21,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='proto.src.grpc.pb',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x16src/grpc/pb/file.proto\x12\x11proto.src.grpc.pb\"7\n\x0b\x46ileRequest\x12\x10\n\x06\x62uffer\x18\x01 \x01(\x0cH\x00\x12\x0e\n\x04name\x18\x02 \x01(\tH\x00\x42\x06\n\x04type\"\x1c\n\x0c\x46ileResponse\x12\x0c\n\x04text\x18\x01 \x01(\t2Y\n\x04\x46ile\x12Q\n\nUploadFile\x12\x1e.proto.src.grpc.pb.FileRequest\x1a\x1f.proto.src.grpc.pb.FileResponse\"\x00(\x01\x62\x06proto3')
-)
+  serialized_pb=_b('\n\x16src/grpc/pb/file.proto\x12\x11proto.src.grpc.pb\x1a\x19src/grpc/pb/message.proto\"k\n\x0b\x46ileRequest\x12\x10\n\x06\x62uffer\x18\x01 \x01(\x0cH\x00\x12\x0e\n\x04name\x18\x02 \x01(\tH\x00\x12\x32\n\x0b\x63lient_type\x18\x03 \x01(\x0b\x32\x1d.proto.src.grpc.pb.ClientTypeB\x06\n\x04type\"\x1c\n\x0c\x46ileResponse\x12\x0c\n\x04text\x18\x01 \x01(\t2T\n\x04\x46ile\x12L\n\nUploadFile\x12\x1e.proto.src.grpc.pb.FileRequest\x1a\x1a.proto.src.grpc.pb.Success\"\x00(\x01\x62\x06proto3')
+  ,
+  dependencies=[src_dot_grpc_dot_pb_dot_message__pb2.DESCRIPTOR,])
 
 
 
@@ -47,6 +49,13 @@ _FILEREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='client_type', full_name='proto.src.grpc.pb.FileRequest.client_type', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -62,8 +71,8 @@ _FILEREQUEST = _descriptor.Descriptor(
       name='type', full_name='proto.src.grpc.pb.FileRequest.type',
       index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=45,
-  serialized_end=100,
+  serialized_start=72,
+  serialized_end=179,
 )
 
 
@@ -93,10 +102,11 @@ _FILERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=102,
-  serialized_end=130,
+  serialized_start=181,
+  serialized_end=209,
 )
 
+_FILEREQUEST.fields_by_name['client_type'].message_type = src_dot_grpc_dot_pb_dot_message__pb2._CLIENTTYPE
 _FILEREQUEST.oneofs_by_name['type'].fields.append(
   _FILEREQUEST.fields_by_name['buffer'])
 _FILEREQUEST.fields_by_name['buffer'].containing_oneof = _FILEREQUEST.oneofs_by_name['type']
@@ -129,8 +139,8 @@ _FILE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=132,
-  serialized_end=221,
+  serialized_start=211,
+  serialized_end=295,
   methods=[
   _descriptor.MethodDescriptor(
     name='UploadFile',
@@ -138,7 +148,7 @@ _FILE = _descriptor.ServiceDescriptor(
     index=0,
     containing_service=None,
     input_type=_FILEREQUEST,
-    output_type=_FILERESPONSE,
+    output_type=src_dot_grpc_dot_pb_dot_message__pb2._SUCCESS,
     serialized_options=None,
   ),
 ])

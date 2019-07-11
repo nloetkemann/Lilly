@@ -1,15 +1,13 @@
 from telepot.loop import MessageLoop
 from src.logic.bot_handler import bothandler
-from src.logic.client import Client
+from src.logic.client import Client, temp_dir
 from src.logic.message import Message
 from src.logic.thread import FunctionThread
 
 client = Client()
 
-temp_dir = '../temp/'
 
-
-def wait_for_response(stop_thread):
+def wait_for_response(stop_thread):  # todo muss noch stopthread einbauen
     responses = client.stream_message()
     for response in responses:
         client_type = response[1]
@@ -25,12 +23,12 @@ def on_chat_message(message):
     if message.is_text():
         # response_text = client.single_message(message.get_text())
         client.single_message(message.get_text(), message.chat_id)
-    # elif message.is_voice():
-    #     file_id = message.get_file_id()
-    #     file_type = message.get_atr('mime_type', 'voice').split('/')[1]
-    #     filename = temp_dir + file_id + '.' + file_type
-    #     message.download_file(filename)
-    #     response_text = client.upload_file(filename)
+    elif message.is_voice():
+        file_id = message.get_file_id()
+        file_type = message.get_atr('mime_type', 'voice').split('/')[1]
+        filename = file_id + '.' + file_type
+        message.download_file(temp_dir + filename)
+        client.upload_file(filename, message.chat_id)
     # elif message.is_document():
     #     response_text = 'Ist auch noch nicht fertig'
     # else:

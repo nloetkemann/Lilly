@@ -2,6 +2,7 @@
 import grpc
 
 from src.grpc.pb import file_pb2 as src_dot_grpc_dot_pb_dot_file__pb2
+from src.grpc.pb import message_pb2 as src_dot_grpc_dot_pb_dot_message__pb2
 
 
 class FileStub(object):
@@ -17,7 +18,7 @@ class FileStub(object):
     self.UploadFile = channel.stream_unary(
         '/proto.src.grpc.pb.File/UploadFile',
         request_serializer=src_dot_grpc_dot_pb_dot_file__pb2.FileRequest.SerializeToString,
-        response_deserializer=src_dot_grpc_dot_pb_dot_file__pb2.FileResponse.FromString,
+        response_deserializer=src_dot_grpc_dot_pb_dot_message__pb2.Success.FromString,
         )
 
 
@@ -38,7 +39,7 @@ def add_FileServicer_to_server(servicer, server):
       'UploadFile': grpc.stream_unary_rpc_method_handler(
           servicer.UploadFile,
           request_deserializer=src_dot_grpc_dot_pb_dot_file__pb2.FileRequest.FromString,
-          response_serializer=src_dot_grpc_dot_pb_dot_file__pb2.FileResponse.SerializeToString,
+          response_serializer=src_dot_grpc_dot_pb_dot_message__pb2.Success.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

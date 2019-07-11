@@ -6,6 +6,8 @@ import src.grpc.pb.file_pb2_grpc as file_pb2_grpc
 from src.grpc.pb.file_pb2 import FileRequest
 from src.grpc.pb.message_pb2 import MessageRequest, Empty, ClientType
 
+temp_dir = './temp/'
+
 
 class Client:
     CHUNK_SIZE = 1024 * 512
@@ -21,10 +23,11 @@ class Client:
         feature = self.message_stub.SingleRequest(request)
         return feature.success
 
-    def upload_file(self, filename):
+    def upload_file(self, filename, chat_id):
         def chunk_file():
-            yield FileRequest(name=filename)
-            with open(filename, 'rb') as file:
+            client_type = ClientType(telegramm=ClientType.Telegramm(chat_id=chat_id))
+            yield FileRequest(name=filename, client_type=client_type)
+            with open(temp_dir + filename, 'rb') as file:
                 while True:
                     piece = file.read(self.CHUNK_SIZE)
                     if len(piece) == 0:
@@ -32,8 +35,8 @@ class Client:
                     yield FileRequest(buffer=piece)
 
         result = self.file_stub.UploadFile(chunk_file())
-        os.remove(filename)
-        return result.text
+        os.remove(temp_dir + filename)
+        return result.success
 
     def stream_message(self):
         for r in self.message_stub.StreamRequest(Empty()):
