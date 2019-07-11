@@ -1,0 +1,6 @@
+gtts==2.0.3
+pyttsx3==2.71
+speechrecognition==3.8.1
+pyaudio
+pywit==0.4.0
+wit==5.1.0
