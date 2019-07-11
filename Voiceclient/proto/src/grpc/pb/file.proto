@@ -1,0 +1,21 @@
+syntax = "proto3";
+package proto.src.grpc.pb;
+import "src/grpc/pb/message.proto";
+
+message FileRequest {
+    oneof type {
+        bytes buffer = 1;
+        string name = 2;
+    }
+    ClientType client_type = 3;
+}
+
+
+message FileResponse {
+    string text = 1;
+}
+
+service File {
+    rpc UploadFile (stream FileRequest) returns (Success) {
+    }
+}
