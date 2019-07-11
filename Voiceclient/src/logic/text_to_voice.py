@@ -12,7 +12,7 @@ engine.setProperty('rate', 150)
 def text_2_voice(response, remove=True):
     time1 = time.time()
     file = 'sounds/temp.mp3'
-    gTTS(text=response.text, lang='de').save(file)
+    gTTS(text=response, lang='de').save(file)
     os.system("mpg123 " + file)
     if remove:
         os.remove(file)
