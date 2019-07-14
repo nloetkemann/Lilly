@@ -18,4 +18,6 @@ message FileResponse {
 service File {
     rpc UploadFile (stream FileRequest) returns (Success) {
     }
+    rpc UploadAudio (stream FileRequest) returns (Success) {
+    }
 }
