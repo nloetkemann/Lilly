@@ -11,7 +11,6 @@ engine.setProperty('rate', 150)
 # takes 2 sec for a "Hello"
 def text_2_voice(response, remove=True):
     time1 = time.time()
-    print(response)
     file = './temp/temp.mp3'
     gTTS(text=response, lang='de').save(file)
     os.system("mpg123 " + file)
