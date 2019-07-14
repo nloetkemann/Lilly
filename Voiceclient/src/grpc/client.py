@@ -45,6 +45,5 @@ class Client:
         print('waiting for response')
         for response in responses:
             client_type = response[1]
-            print(response)
             if client_type.la is not None and client_type.la != '':
                 text_2_voice(response[0])
