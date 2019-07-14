@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='proto.src.grpc.pb',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x16src/grpc/pb/file.proto\x12\x11proto.src.grpc.pb\x1a\x19src/grpc/pb/message.proto\"k\n\x0b\x46ileRequest\x12\x10\n\x06\x62uffer\x18\x01 \x01(\x0cH\x00\x12\x0e\n\x04name\x18\x02 \x01(\tH\x00\x12\x32\n\x0b\x63lient_type\x18\x03 \x01(\x0b\x32\x1d.proto.src.grpc.pb.ClientTypeB\x06\n\x04type\"\x1c\n\x0c\x46ileResponse\x12\x0c\n\x04text\x18\x01 \x01(\t2R\n\x04\x46ile\x12J\n\nUploadFile\x12\x1e.proto.src.grpc.pb.FileRequest\x1a\x18.proto.src.grpc.pb.Empty\"\x00(\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x16src/grpc/pb/file.proto\x12\x11proto.src.grpc.pb\x1a\x19src/grpc/pb/message.proto\"k\n\x0b\x46ileRequest\x12\x10\n\x06\x62uffer\x18\x01 \x01(\x0cH\x00\x12\x0e\n\x04name\x18\x02 \x01(\tH\x00\x12\x32\n\x0b\x63lient_type\x18\x03 \x01(\x0b\x32\x1d.proto.src.grpc.pb.ClientTypeB\x06\n\x04type\"\x1c\n\x0c\x46ileResponse\x12\x0c\n\x04text\x18\x01 \x01(\t2\xa3\x01\n\x04\x46ile\x12L\n\nUploadFile\x12\x1e.proto.src.grpc.pb.FileRequest\x1a\x1a.proto.src.grpc.pb.Success\"\x00(\x01\x12M\n\x0bUploadAudio\x12\x1e.proto.src.grpc.pb.FileRequest\x1a\x1a.proto.src.grpc.pb.Success\"\x00(\x01\x62\x06proto3')
   ,
   dependencies=[src_dot_grpc_dot_pb_dot_message__pb2.DESCRIPTOR,])
 
@@ -139,8 +139,8 @@ _FILE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=211,
-  serialized_end=293,
+  serialized_start=212,
+  serialized_end=375,
   methods=[
   _descriptor.MethodDescriptor(
     name='UploadFile',
@@ -148,7 +148,16 @@ _FILE = _descriptor.ServiceDescriptor(
     index=0,
     containing_service=None,
     input_type=_FILEREQUEST,
-    output_type=src_dot_grpc_dot_pb_dot_message__pb2._EMPTY,
+    output_type=src_dot_grpc_dot_pb_dot_message__pb2._SUCCESS,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='UploadAudio',
+    full_name='proto.src.grpc.pb.File.UploadAudio',
+    index=1,
+    containing_service=None,
+    input_type=_FILEREQUEST,
+    output_type=src_dot_grpc_dot_pb_dot_message__pb2._SUCCESS,
     serialized_options=None,
   ),
 ])
