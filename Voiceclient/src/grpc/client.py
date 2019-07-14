@@ -9,6 +9,7 @@ from src.logic.text_to_voice import text_2_voice
 from src.logic.thread import FunctionThread
 from src.logic.voice_to_text import voice_2_text
 
+temp_dir = './temp/'
 
 class Client:
     CHUNK_SIZE = 1024 * 512
@@ -24,9 +25,7 @@ class Client:
         def chunk_file():
             client_type = ClientType(la=ClientType.LA())
             yield FileRequest(name=filename, client_type=client_type)
-            print('nachricht gesendet')
-            print(filename)
-            with open(filename, 'rb') as file:
+            with open(temp_dir + filename, 'rb') as file:
                 while True:
                     piece = file.read(self.CHUNK_SIZE)
                     if len(piece) == 0:
@@ -34,6 +33,7 @@ class Client:
                     yield FileRequest(buffer=piece)
 
         result = self.file_stub.UploadFile(chunk_file())
+        os.remove(temp_dir + filename)
         return result.success
 
     def _get_messages_from_server(self):
@@ -45,7 +45,6 @@ class Client:
         print('waiting for response')
         for response in responses:
             client_type = response[1]
-            if client_type.telegramm is not None and client_type.telegramm != '':
-                chat_id = client_type.telegramm.chat_id
-                # bothandler.bot.sendMessage(chat_id, response[0])
+            print(response)
+            if client_type.la is not None and client_type.la != '':
                 text_2_voice(response[0])
