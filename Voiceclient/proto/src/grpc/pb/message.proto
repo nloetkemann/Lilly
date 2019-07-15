@@ -1,0 +1,39 @@
+syntax = "proto3";
+package proto.src.grpc.pb;
+
+message MessageRequest {
+    string body = 1;
+    string type = 2;
+    ClientType client_type = 3;
+
+}
+
+message Empty {}
+
+message Success {
+    bool success = 1;
+}
+message ClientType {
+    message LA {}
+    message Telegramm {
+        int32 chat_id = 1;
+    }
+
+    oneof client_type {
+        Telegramm telegramm = 1;
+        LA la = 2;
+    }
+}
+
+message MessageResponse {
+    string body = 1;
+    ClientType client_type = 2;
+
+}
+
+service Message {
+    rpc SingleRequest (MessageRequest) returns (Success) {
+    }
+    rpc StreamRequest (Empty) returns (stream MessageResponse) {
+    }
+}
