@@ -6,6 +6,7 @@ from src.grpc.pb.file_pb2 import FileRequest
 from src.grpc.pb.message_pb2 import MessageRequest, Empty, ClientType
 from src.logic.bot_handler import bothandler
 from src.logic.thread import FunctionThread
+from src.logic.command import CommandHandler
 
 temp_dir = './temp/'
 
@@ -29,7 +30,7 @@ class Client:
     def upload_file(self, filename, chat_id):
         def chunk_file():
             client_type = ClientType(telegramm=ClientType.Telegramm(chat_id=chat_id))
-            yield FileRequest(name=filename, client_type=client_type)
+            yield FileRequest(name=filename, client_type=client_type, file_mode=CommandHandler.get_file_mode())
             with open(temp_dir + filename, 'rb') as file:
                 while True:
                     piece = file.read(self.CHUNK_SIZE)
@@ -52,3 +53,6 @@ class Client:
             if client_type.telegramm is not None and client_type.telegramm != '':
                 chat_id = client_type.telegramm.chat_id
                 bothandler.bot.sendMessage(chat_id, response[0])
+
+    def set_file_mode(self, mode):
+        self.file_mode = mode

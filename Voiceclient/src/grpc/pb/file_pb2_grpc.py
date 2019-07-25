@@ -20,11 +20,6 @@ class FileStub(object):
         request_serializer=src_dot_grpc_dot_pb_dot_file__pb2.FileRequest.SerializeToString,
         response_deserializer=src_dot_grpc_dot_pb_dot_message__pb2.Success.FromString,
         )
-    self.UploadAudio = channel.stream_unary(
-        '/proto.src.grpc.pb.File/UploadAudio',
-        request_serializer=src_dot_grpc_dot_pb_dot_file__pb2.FileRequest.SerializeToString,
-        response_deserializer=src_dot_grpc_dot_pb_dot_message__pb2.Success.FromString,
-        )
 
 
 class FileServicer(object):
@@ -38,23 +33,11 @@ class FileServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def UploadAudio(self, request_iterator, context):
-    # missing associated documentation comment in .proto file
-    pass
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
-
 
 def add_FileServicer_to_server(servicer, server):
   rpc_method_handlers = {
       'UploadFile': grpc.stream_unary_rpc_method_handler(
           servicer.UploadFile,
-          request_deserializer=src_dot_grpc_dot_pb_dot_file__pb2.FileRequest.FromString,
-          response_serializer=src_dot_grpc_dot_pb_dot_message__pb2.Success.SerializeToString,
-      ),
-      'UploadAudio': grpc.stream_unary_rpc_method_handler(
-          servicer.UploadAudio,
           request_deserializer=src_dot_grpc_dot_pb_dot_file__pb2.FileRequest.FromString,
           response_serializer=src_dot_grpc_dot_pb_dot_message__pb2.Success.SerializeToString,
       ),

@@ -2,7 +2,6 @@ from src.logic.tools import random_answer
 from src.logic.reponse import Response
 from src.wit.entities.intent_entity import IntentEntity
 from src.wit.entity import Entity
-from random import randint
 
 
 class WelcomeEntity(Entity):
@@ -50,7 +49,6 @@ class WelcomeEntity(Entity):
                 text += WelcomeEntity.check_weather(values[1])
         else:
             text += WelcomeEntity.get_greeting(self.possible_answers, values[0])
-            # text += ' ' + self.get_name()
             text += WelcomeEntity.check_weather(values[0])
         if text != '':
             return Response(text)
