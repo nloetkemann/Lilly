@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 ENV WIT_TOKEN=$(WIT_TOKEN)
 ENV WEATHER_TOKEN=$(WEATHER_TOKEN)
-ENV WOLFRAM=$(WOLFRAM)
+ENV WOLFRAM_TOKEN=$(WOLFRAM_TOKEN)
 
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt

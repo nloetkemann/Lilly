@@ -3,11 +3,11 @@ all: gen-proto
 install:
 	pip install -r requirements.txt
 
-docker-build:
+docker-build: docker-rm
 	docker build -t lilly-server .
 
 docker-run: docker-build
-	docker run --name lilly-server-p 50051:50051 -itd lilly-server
+	docker run --name lilly-server -p 50051:50051 -itd lilly-server
 
 docker-stop:
 	docker stop lilly-server
