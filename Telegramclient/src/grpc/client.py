@@ -15,11 +15,12 @@ class Client:
     CHUNK_SIZE = 1024 * 512
 
     def __init__(self):
-        channel = grpc.insecure_channel('localhost:50051')
+        channel = grpc.insecure_channel('192.168.178.41:50051')
         self.message_stub = message_pb2_grpc.MessageStub(channel)
         self.file_stub = file_pb2_grpc.FileStub(channel)
         self.thread = FunctionThread(self._wait_for_response)
         self.thread.start()
+        print('Bot is running')
 
     def single_message(self, text, chat_id, type='text'):
         client_type = ClientType(telegramm=ClientType.Telegramm(chat_id=chat_id))

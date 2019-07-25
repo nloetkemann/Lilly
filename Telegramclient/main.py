@@ -42,8 +42,6 @@ def on_callback(message):
     bothandler.send_message(response)
 
 
-print('Bot is running')
-
 MessageLoop(bothandler.bot, {
     'chat': on_chat_message,
     # 'inline_query': on_inline_query,
