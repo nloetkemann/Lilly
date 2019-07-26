@@ -1,6 +1,3 @@
-# from src.logic.bot_handler import bothandler
-
-
 class Message:
     def __init__(self, message_text):
         self.all = message_text
