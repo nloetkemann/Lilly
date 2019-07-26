@@ -1,5 +1,7 @@
 import os
 import grpc
+from urllib3.exceptions import ProtocolError
+
 import src.grpc.pb.message_pb2_grpc as message_pb2_grpc
 import src.grpc.pb.file_pb2_grpc as file_pb2_grpc
 from src.grpc.pb.file_pb2 import FileRequest
@@ -53,7 +55,11 @@ class Client:
             client_type = response[1]
             if client_type.telegramm is not None and client_type.telegramm != '':
                 chat_id = client_type.telegramm.chat_id
-                bothandler.bot.sendMessage(chat_id, response[0])
+                try:
+                    bothandler.bot.sendMessage(chat_id, response[0])
+                except ProtocolError as e:
+                    bothandler.restart()
+                    bothandler.bot.sendMessage(chat_id, response[0])
 
     def set_file_mode(self, mode):
         self.file_mode = mode

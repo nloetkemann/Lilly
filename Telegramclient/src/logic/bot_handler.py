@@ -62,5 +62,8 @@ class BotHandler:
     def delete_message(self, message_id):
         self.bot.deleteMessage(message_id)
 
+    def restart(self):
+        self.bot = telepot.Bot(os.environ['BOT_TOKEN'])
+
 
 bothandler = BotHandler()
