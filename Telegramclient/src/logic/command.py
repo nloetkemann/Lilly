@@ -23,16 +23,20 @@ class CommandHandler:
 
     def file_mode(self):
         bothandler.send_question(
-            Response('Was soll ich mit den Audiodateien machen?', self.message, ['Übersetzen', 'Befehl'], 'question'))
+            Response('Was soll ich mit den Audiodateien machen?',
+                     self.message,
+                     {'Übersetzen': "set_file_mode;translate", 'Befehl': "set_file_mode;command"},
+                     type='question'))
 
     def help(self):
         bothandler.send_message(Response('Hier ist deine Hilfe...', self.message))
 
     def get_command(self, command):
+        command = command.replace("/", "")
         if command == 'help':
-            return self.file_mode()
-        elif command == 'voice_mode':
             return self.help()
+        elif command == 'voice_mode':
+            return self.file_mode()
 
     class Callback:
         # Hier wird die Methode ausgeführt, die als Callback zurück kam
@@ -69,13 +73,13 @@ class CommandHandler:
         def change_mode(self, mode):
             CommandHandler.set_file_mode(mode)
 
-        def timer_status(self, name):
-            for time_object in time_object_list:
-                if time_object.name == name:
-                    return TimerEntity.status_to_time(time_object.get_status(), None).text
-
-        def timer_delete(self, name):
-            for time_object in time_object_list:
-                if time_object.name == name:
-                    time_object.stop_timer()
-                    return 'Dein Timer wurde erfolgreich gelöscht.'
+        # def timer_status(self, name):
+        #     for time_object in time_object_list:
+        #         if time_object.name == name:
+        #             return TimerEntity.status_to_time(time_object.get_status(), None).text
+        #
+        # def timer_delete(self, name):
+        #     for time_object in time_object_list:
+        #         if time_object.name == name:
+        #             time_object.stop_timer()
+        #             return 'Dein Timer wurde erfolgreich gelöscht.'

@@ -35,6 +35,7 @@ class BotHandler:
         assert isinstance(values, dict)
         all_keyboard = []
         for key in values.keys():
+            print(values[key])
             all_keyboard.append(InlineKeyboardButton(text=key, callback_data=values[key]))
         keyboard = InlineKeyboardMarkup(inline_keyboard=[
             all_keyboard,

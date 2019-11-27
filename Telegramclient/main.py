@@ -10,6 +10,7 @@ client = Client()
 
 def on_chat_message(message):
     message = Message(message)
+    print(message.get_text())
     if message.is_command():
         CommandHandler(message).get_command(message.get_text())
     elif message.is_text():
@@ -37,7 +38,9 @@ def on_chat_message(message):
 #
 #
 def on_callback(message):
+    print("origin", message)
     message = Message(message)
+    print("message", message.get_text())
     response = Response(CommandHandler.Callback().callback_action(message.get_text()), message)
     bothandler.send_message(response)
 
