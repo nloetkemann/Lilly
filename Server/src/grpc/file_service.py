@@ -17,6 +17,7 @@ class FileServicer(file_pb2_grpc.FileServicer):
             filename = self.temp_dir + name
             client_type = first_part.client_type
             file_mode = first_part.file_mode
+            print(filename)
             with open(filename, 'wb') as f:
                 for single_part in parts:
                     if not single_part.HasField('name'):
