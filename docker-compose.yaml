@@ -14,3 +14,7 @@ services:
     restart: always
     environment:
       SERVER: server
+    links:
+      - server
+    depends_on:
+      - server

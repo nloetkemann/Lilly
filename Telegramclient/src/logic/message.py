@@ -12,21 +12,36 @@ class Message:
         else:
             self.chat_id = ''
 
-        if 'text' in message_text:
-            self.type = 'text'
-        elif 'voice' in message_text:
-            self.type = 'voice'
-        elif 'document' in message_text:
-            self.type = 'document'
+        if 'message' in message_text:
+            if 'text' in message_text['message']:
+                self.type = 'text'
+            elif 'voice' in message_text['message']:
+                self.type = 'voice'
+            elif 'document' in message_text['message']:
+                self.type = 'document'
+            else:
+                self.type = None
         else:
-            self.type = None
+            if 'text' in message_text:
+                self.type = 'text'
+            elif 'voice' in message_text:
+                self.type = 'voice'
+            elif 'document' in message_text:
+                self.type = 'document'
+            else:
+                self.type = None
 
         self.is_voice_file = self.is_voice()  # could be an document type but a voice message
 
     def get_text(self):
-        if self.is_text():
+        if self.is_callback():
+            return self.all['message']['text']
+        elif self.is_text():
             return self.all['text']
         return None
+
+    def is_callback(self):
+        return 'message' in self.all
 
     def get_file_id(self):
         if self.is_voice():
