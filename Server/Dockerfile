@@ -11,4 +11,4 @@ RUN apt-get install ffmpeg -y
 COPY . .
 EXPOSE 50051/TCP
 
-CMD [ "python", "./main.py" ]
+CMD [ "python3", "./main.py" ]
