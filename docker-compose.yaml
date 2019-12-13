@@ -8,7 +8,7 @@ services:
     ports:
       - "50051:50051" 
 
-  proxy:
+  client:
     build: ./Telegramclient
     container_name: lilly-telegram
     restart: always
