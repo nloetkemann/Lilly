@@ -3,14 +3,12 @@ from src.logic.bot_handler import bothandler
 from src.grpc.client import Client, temp_dir
 from src.logic.message import Message
 from src.logic.command import CommandHandler
-from src.logic.reponse import Response
 
 client = Client()
 
 
 def on_chat_message(message):
     message = Message(message)
-    print(message.get_text())
     if message.is_command():
         CommandHandler(message).get_command(message.get_text())
     elif message.is_text():
@@ -38,11 +36,15 @@ def on_chat_message(message):
 #
 #
 def on_callback(message):
-    print("origin", message)
     message = Message(message)
-    print("message", message.get_text())
-    response = Response(CommandHandler.Callback().callback_action(message.get_text()), message)
-    bothandler.send_message(response)
+    old_message_id = bothandler.get_message_identifier(message.get_atr('message'))
+    try:
+        CommandHandler.Callback().callback_action(message.get_atr('data'))
+        bothandler.delete_message(old_message_id)
+        bothandler.answer_callback(message.chat_id, 'Erledigt')
+    except Exception as e:
+        bothandler.delete_message(old_message_id)
+        bothandler.answer_callback(message.chat_id, 'Es gab leider einen Fehler')
 
 
 MessageLoop(bothandler.bot, {

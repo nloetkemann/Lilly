@@ -25,7 +25,7 @@ class CommandHandler:
         bothandler.send_question(
             Response('Was soll ich mit den Audiodateien machen?',
                      self.message,
-                     {'Übersetzen': "set_file_mode;translate", 'Befehl': "set_file_mode;command"},
+                     {'Übersetzen': "change_mode;translate", 'Befehl': "change_mode;command"},
                      type='question'))
 
     def help(self):
@@ -48,6 +48,7 @@ class CommandHandler:
             else:
                 method, args = split
                 return getattr(self, method)(args)
+
 
         def show_help(self):
             return """

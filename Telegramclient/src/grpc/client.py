@@ -1,7 +1,6 @@
 import os
 import grpc
 from urllib3.exceptions import ProtocolError
-
 import src.grpc.pb.message_pb2_grpc as message_pb2_grpc
 import src.grpc.pb.file_pb2_grpc as file_pb2_grpc
 from src.grpc.pb.file_pb2 import FileRequest
@@ -17,7 +16,7 @@ class Client:
     CHUNK_SIZE = 1024 * 512
 
     def __init__(self):
-        channel = grpc.insecure_channel('localhost:50051')
+        channel = grpc.insecure_channel(os.getenv('SERVER') if os.getenv('SERVER') else  'localhost:50051')
         self.message_stub = message_pb2_grpc.MessageStub(channel)
         self.file_stub = file_pb2_grpc.FileStub(channel)
         self.thread = FunctionThread(self._wait_for_response)
@@ -41,6 +40,7 @@ class Client:
                         return
                     yield FileRequest(buffer=piece)
 
+        print(CommandHandler.get_file_mode())
         result = self.file_stub.UploadFile(chunk_file())
         os.remove(temp_dir + filename)
         return result.success
@@ -60,6 +60,3 @@ class Client:
                 except ProtocolError as e:
                     bothandler.restart()
                     bothandler.bot.sendMessage(chat_id, response[0])
-
-    def set_file_mode(self, mode):
-        self.file_mode = mode
