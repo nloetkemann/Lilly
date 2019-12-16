@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  server:
+    build: ./Server
+    container_name: lilly-server
+    restart: always
+    ports:
+      - "50051:50051" 
+
+  client:
+    build: ./Telegramclient
+    container_name: lilly-telegram
+    restart: always
+    environment:
+      SERVER: server:50051
+    links:
+      - server
+    depends_on:
+      - server

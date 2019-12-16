@@ -8,6 +8,7 @@ message FileRequest {
         string name = 2;
     }
     ClientType client_type = 3;
+    string file_mode = 4;
 }
 
 

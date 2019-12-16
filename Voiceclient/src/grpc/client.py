@@ -3,19 +3,18 @@ import grpc
 import src.grpc.pb.message_pb2_grpc as message_pb2_grpc
 import src.grpc.pb.file_pb2_grpc as file_pb2_grpc
 from src.grpc.pb.file_pb2 import FileRequest
-from src.grpc.pb.message_pb2 import MessageRequest, Empty, ClientType
-# from src.logic.bot_handler import bothandler
+from src.grpc.pb.message_pb2 import Empty, ClientType
 from src.logic.text_to_voice import text_2_voice
 from src.logic.thread import FunctionThread
-from src.logic.voice_to_text import voice_2_text
 
 temp_dir = './temp/'
+
 
 class Client:
     CHUNK_SIZE = 1024 * 512
 
     def __init__(self):
-        channel = grpc.insecure_channel('192.168.178.23:50051')
+        channel = grpc.insecure_channel('192.168.178.41:50051')
         self.message_stub = message_pb2_grpc.MessageStub(channel)
         self.file_stub = file_pb2_grpc.FileStub(channel)
         self.thread = FunctionThread(self._wait_for_response)

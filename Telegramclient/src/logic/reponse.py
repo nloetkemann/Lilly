@@ -18,5 +18,5 @@ class Response:
         return self._type == 'message' and isinstance(self.args, list)
 
     def get_args(self):
-        if self.is_question() or self.contains_custom_keyboard():
-            return self.args[0]
+        # if self.is_question() or self.contains_custom_keyboard():
+        return self.args[0]
