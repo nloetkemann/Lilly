@@ -1,6 +1,7 @@
 import src.grpc.pb.message_pb2 as message_pb2
 from src.logic.handler import MessageHandler
 from src.logic.message_queue import MessageQueue
+from src.logic.reponse import Response
 from src.wit.wit import send_text
 import src.grpc.pb.message_pb2_grpc as message_pb2_grpc
 
@@ -21,4 +22,11 @@ class MessageServicer(message_pb2_grpc.MessageServicer):
         while True:
             while MessageQueue.get_length() > 0:
                 response, client_type = MessageQueue.get_first()
-                yield message_pb2.MessageResponse(body=response.text, client_type=client_type)
+                if isinstance(response, Response):
+                    if response.is_question() and isinstance(response.args[0], dict):
+                        yield message_pb2.MessageResponse(body=response.text, client_type=client_type, keyboard=response.args)
+                    else:
+                        yield message_pb2.MessageResponse(body=response.text, client_type=client_type, keyboard={})
+                else:
+                    response = Response("Es gabe leider ein kleines Problem", client_type=client_type)
+                    yield message_pb2.MessageResponse(body=response.text, client_type=client_type, keyboard={})

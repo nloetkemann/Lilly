@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='proto.src.grpc.pb',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x19src/grpc/pb/message.proto\x12\x11proto.src.grpc.pb\"`\n\x0eMessageRequest\x12\x0c\n\x04\x62ody\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x32\n\x0b\x63lient_type\x18\x03 \x01(\x0b\x32\x1d.proto.src.grpc.pb.ClientType\"\x07\n\x05\x45mpty\"\x1a\n\x07Success\x12\x0f\n\x07success\x18\x01 \x01(\x08\"\xad\x01\n\nClientType\x12<\n\ttelegramm\x18\x01 \x01(\x0b\x32\'.proto.src.grpc.pb.ClientType.TelegrammH\x00\x12.\n\x02la\x18\x02 \x01(\x0b\x32 .proto.src.grpc.pb.ClientType.LAH\x00\x1a\x04\n\x02LA\x1a\x1c\n\tTelegramm\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\x05\x42\r\n\x0b\x63lient_type\"S\n\x0fMessageResponse\x12\x0c\n\x04\x62ody\x18\x01 \x01(\t\x12\x32\n\x0b\x63lient_type\x18\x02 \x01(\x0b\x32\x1d.proto.src.grpc.pb.ClientType2\xae\x01\n\x07Message\x12P\n\rSingleRequest\x12!.proto.src.grpc.pb.MessageRequest\x1a\x1a.proto.src.grpc.pb.Success\"\x00\x12Q\n\rStreamRequest\x12\x18.proto.src.grpc.pb.Empty\x1a\".proto.src.grpc.pb.MessageResponse\"\x00\x30\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x19src/grpc/pb/message.proto\x12\x11proto.src.grpc.pb\"`\n\x0eMessageRequest\x12\x0c\n\x04\x62ody\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x32\n\x0b\x63lient_type\x18\x03 \x01(\x0b\x32\x1d.proto.src.grpc.pb.ClientType\"\x07\n\x05\x45mpty\"\x1a\n\x07Success\x12\x0f\n\x07success\x18\x01 \x01(\x08\"\xad\x01\n\nClientType\x12<\n\ttelegramm\x18\x01 \x01(\x0b\x32\'.proto.src.grpc.pb.ClientType.TelegrammH\x00\x12.\n\x02la\x18\x02 \x01(\x0b\x32 .proto.src.grpc.pb.ClientType.LAH\x00\x1a\x04\n\x02LA\x1a\x1c\n\tTelegramm\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\x05\x42\r\n\x0b\x63lient_type\"\xc8\x01\n\x0fMessageResponse\x12\x0c\n\x04\x62ody\x18\x01 \x01(\t\x12\x32\n\x0b\x63lient_type\x18\x02 \x01(\x0b\x32\x1d.proto.src.grpc.pb.ClientType\x12\x42\n\x08keyboard\x18\x03 \x03(\x0b\x32\x30.proto.src.grpc.pb.MessageResponse.KeyboardEntry\x1a/\n\rKeyboardEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x32\xae\x01\n\x07Message\x12P\n\rSingleRequest\x12!.proto.src.grpc.pb.MessageRequest\x1a\x1a.proto.src.grpc.pb.Success\"\x00\x12Q\n\rStreamRequest\x12\x18.proto.src.grpc.pb.Empty\x1a\".proto.src.grpc.pb.MessageResponse\"\x00\x30\x01\x62\x06proto3')
 )
 
 
@@ -220,6 +220,43 @@ _CLIENTTYPE = _descriptor.Descriptor(
 )
 
 
+_MESSAGERESPONSE_KEYBOARDENTRY = _descriptor.Descriptor(
+  name='KeyboardEntry',
+  full_name='proto.src.grpc.pb.MessageResponse.KeyboardEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='proto.src.grpc.pb.MessageResponse.KeyboardEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='proto.src.grpc.pb.MessageResponse.KeyboardEntry.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=_b('8\001'),
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=513,
+  serialized_end=560,
+)
+
 _MESSAGERESPONSE = _descriptor.Descriptor(
   name='MessageResponse',
   full_name='proto.src.grpc.pb.MessageResponse',
@@ -241,10 +278,17 @@ _MESSAGERESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='keyboard', full_name='proto.src.grpc.pb.MessageResponse.keyboard', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
-  nested_types=[],
+  nested_types=[_MESSAGERESPONSE_KEYBOARDENTRY, ],
   enum_types=[
   ],
   serialized_options=None,
@@ -253,8 +297,8 @@ _MESSAGERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=359,
-  serialized_end=442,
+  serialized_start=360,
+  serialized_end=560,
 )
 
 _MESSAGEREQUEST.fields_by_name['client_type'].message_type = _CLIENTTYPE
@@ -268,7 +312,9 @@ _CLIENTTYPE.fields_by_name['telegramm'].containing_oneof = _CLIENTTYPE.oneofs_by
 _CLIENTTYPE.oneofs_by_name['client_type'].fields.append(
   _CLIENTTYPE.fields_by_name['la'])
 _CLIENTTYPE.fields_by_name['la'].containing_oneof = _CLIENTTYPE.oneofs_by_name['client_type']
+_MESSAGERESPONSE_KEYBOARDENTRY.containing_type = _MESSAGERESPONSE
 _MESSAGERESPONSE.fields_by_name['client_type'].message_type = _CLIENTTYPE
+_MESSAGERESPONSE.fields_by_name['keyboard'].message_type = _MESSAGERESPONSE_KEYBOARDENTRY
 DESCRIPTOR.message_types_by_name['MessageRequest'] = _MESSAGEREQUEST
 DESCRIPTOR.message_types_by_name['Empty'] = _EMPTY
 DESCRIPTOR.message_types_by_name['Success'] = _SUCCESS
@@ -321,13 +367,22 @@ _sym_db.RegisterMessage(ClientType.LA)
 _sym_db.RegisterMessage(ClientType.Telegramm)
 
 MessageResponse = _reflection.GeneratedProtocolMessageType('MessageResponse', (_message.Message,), dict(
+
+  KeyboardEntry = _reflection.GeneratedProtocolMessageType('KeyboardEntry', (_message.Message,), dict(
+    DESCRIPTOR = _MESSAGERESPONSE_KEYBOARDENTRY,
+    __module__ = 'src.grpc.pb.message_pb2'
+    # @@protoc_insertion_point(class_scope:proto.src.grpc.pb.MessageResponse.KeyboardEntry)
+    ))
+  ,
   DESCRIPTOR = _MESSAGERESPONSE,
   __module__ = 'src.grpc.pb.message_pb2'
   # @@protoc_insertion_point(class_scope:proto.src.grpc.pb.MessageResponse)
   ))
 _sym_db.RegisterMessage(MessageResponse)
+_sym_db.RegisterMessage(MessageResponse.KeyboardEntry)
 
 
+_MESSAGERESPONSE_KEYBOARDENTRY._options = None
 
 _MESSAGE = _descriptor.ServiceDescriptor(
   name='Message',
@@ -335,8 +390,8 @@ _MESSAGE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=445,
-  serialized_end=619,
+  serialized_start=563,
+  serialized_end=737,
   methods=[
   _descriptor.MethodDescriptor(
     name='SingleRequest',

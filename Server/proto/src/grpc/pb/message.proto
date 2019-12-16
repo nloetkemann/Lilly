@@ -28,6 +28,7 @@ message ClientType {
 message MessageResponse {
     string body = 1;
     ClientType client_type = 2;
+    map<string, string> keyboard = 3;
 
 }
 
