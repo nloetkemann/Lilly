@@ -16,7 +16,8 @@ class Client:
     CHUNK_SIZE = 1024 * 512
 
     def __init__(self):
-        channel = grpc.insecure_channel(os.getenv('SERVER') if os.getenv('SERVER') else  'localhost:50051')
+        print("Connect to " + os.getenv('SERVER') if os.getenv('SERVER') else 'localhost:50051')
+        channel = grpc.insecure_channel(os.getenv('SERVER') if os.getenv('SERVER') else 'localhost:50051')
         self.message_stub = message_pb2_grpc.MessageStub(channel)
         self.file_stub = file_pb2_grpc.FileStub(channel)
         self.thread = FunctionThread(self._wait_for_response)

@@ -13,7 +13,7 @@ services:
     container_name: lilly-telegram
     restart: always
     environment:
-      SERVER: server
+      SERVER: server:50051
     links:
       - server
     depends_on:
