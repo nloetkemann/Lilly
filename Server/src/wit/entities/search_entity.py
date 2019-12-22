@@ -35,17 +35,13 @@ class SearchEntity(Entity):
             query = wit_response.get_values('query')[0]
             try:
                 text = wikipedia.summary(query)[:300]
-                print(type(text))
                 array = text.split('.')
                 array.pop()
                 text = ''.join(array)
                 return Response(text)
             except wikipedia.exceptions.DisambiguationError as e:
-                # there is more than one result
-                keyboard = {}
-                for entry in e.options:
-                    keyboard[entry] = 'wikisearch;' + entry  # keyboard is a map {name: befehl, ...}
-                return Response("Was genau suchst du?", keyboard, type="question")
+                if e.options and isinstance(e.options, list):
+                    return Response("Was genau suchst du?", e.options, 'seach_wiki', type="question")
 
     def get_response(self):
         value = self.wit_response.get_values(self.keyword)[0]

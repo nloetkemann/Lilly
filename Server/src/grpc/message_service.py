@@ -23,10 +23,15 @@ class MessageServicer(message_pb2_grpc.MessageServicer):
             while MessageQueue.get_length() > 0:
                 response, client_type = MessageQueue.get_first()
                 if isinstance(response, Response):
-                    if response.is_question() and isinstance(response.args[0], dict):
-                        yield message_pb2.MessageResponse(body=response.text, client_type=client_type, keyboard=response.args)
+                    if response.is_question() and isinstance(response.args[0], list):
+                        keyboardlist = response.args[0]
+                        callbackmethod = response.args[1]
+                        keyboard = message_pb2.MessageResponse.Keyboard(keyboard=keyboardlist, callbackmethod=callbackmethod)
+                        yield message_pb2.MessageResponse(body=response.text, client_type=client_type, keyboard=keyboard)
                     else:
-                        yield message_pb2.MessageResponse(body=response.text, client_type=client_type, keyboard={})
+                        keyboard = message_pb2.MessageResponse.Keyboard(keyboard=[], callbackmethod="")
+                        yield message_pb2.MessageResponse(body=response.text, client_type=client_type, keyboard=keyboard)
                 else:
                     response = Response("Es gabe leider ein kleines Problem", client_type=client_type)
-                    yield message_pb2.MessageResponse(body=response.text, client_type=client_type, keyboard={})
+                    keyboard = message_pb2.MessageResponse.Keyboard(keyboard=[], callbackmethod="")
+                    yield message_pb2.MessageResponse(body=response.text, client_type=client_type, keyboard=keyboard)

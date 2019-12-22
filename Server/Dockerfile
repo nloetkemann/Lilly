@@ -5,6 +5,8 @@ WORKDIR /usr/src/app
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
 
+RUN mkdir temp
+
 RUN apt-get update
 RUN apt-get install ffmpeg -y
 

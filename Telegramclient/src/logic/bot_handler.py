@@ -2,6 +2,7 @@ import os
 import telepot
 from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup
 from urllib3.exceptions import ProtocolError
+import math
 
 from src.logic.reponse import Response
 
@@ -15,6 +16,7 @@ class BotHandler:
         assert isinstance(response, Response)
         try:
             self.retry = 0
+            print(keyboard)
             return self.bot.sendMessage(response.origin_message.chat_id, response.text, reply_markup=keyboard)
         except ProtocolError as e:
             if self.retry == 0:
@@ -25,13 +27,13 @@ class BotHandler:
                 raise e
 
     def send_question(self, response):
-        return self.send_message(response, self._get_inline__keyboard(response.get_args()))
+        return self.send_message(response, self.get_inline__keyboard(response.get_args()))
 
     def send_message_with_keyboard(self, response):
-        return self.send_message(response, self._get_custom_keyboard(response.get_args()))
+        return self.send_message(response, self.get_custom_keyboard(response.get_args()))
 
     #  values should be dict
-    def _get_inline__keyboard(self, values):
+    def get_inline__keyboard(self, values):
         assert isinstance(values, dict)
         all_keyboard = []
         for key in values.keys():
@@ -41,8 +43,33 @@ class BotHandler:
         ])
         return keyboard
 
+    def get_multi_line_keyboard(self, values, elems_in_row=None):
+        assert isinstance(values, dict)
+        max_elems_in_row = 5
+        number_of_rows = math.ceil(len(values) / max_elems_in_row)
+        elems_in_row = elems_in_row if elems_in_row is not None else math.floor(len(values) / number_of_rows)
+
+        all_keyboards = []
+        one_line = []
+        counter = 0
+
+        print(len(values))
+
+        for key in values.keys():
+
+            if counter == elems_in_row:
+                all_keyboards.append(one_line)
+                print(elems_in_row, len(one_line))
+                counter = 1
+                one_line = []
+            else:
+                counter += 1
+            one_line.append(InlineKeyboardButton(text=key, callback_data=values[key]))
+        print(len(all_keyboards))
+        return InlineKeyboardMarkup(inline_keyboard=all_keyboards)
+
     # values should be array
-    def _get_custom_keyboard(self, values):
+    def get_custom_keyboard(self, values):
         assert isinstance(values, list)
         keyboard = ReplyKeyboardMarkup(keyboard=values, one_time_keyboard=True, resize_keyboard=True)
         return keyboard

@@ -48,16 +48,27 @@ class Client:
 
     def _get_messages_from_server(self):
         for r in self.message_stub.StreamRequest(Empty()):
-            yield (r.body, r.client_type)
+            # print((r.keyboard.keyboard, r.keyboard.callbackmethod))
+            # print((r.body, r.client_type))
+            yield (r.body, r.client_type, r.keyboard)
 
     def _wait_for_response(self, stop_thread):  # todo muss noch stopthread einbauen
         responses = self._get_messages_from_server()
         for response in responses:
             client_type = response[1]
+            keyboard = response[2]
             if client_type.telegramm is not None and client_type.telegramm != '':
                 chat_id = client_type.telegramm.chat_id
                 try:
-                    bothandler.bot.sendMessage(chat_id, response[0])
+                    if len(keyboard.keyboard) > 0 and keyboard.callbackmethod != "":
+                        custom_keyboard = {}
+                        for item in keyboard.keyboard:
+                            custom_keyboard[item] = keyboard.callbackmethod + ';' + item
+                        bothandler.get_multi_line_keyboard(custom_keyboard, 2)
+                        bothandler.bot.sendMessage(chat_id, response[0],
+                                                   reply_markup=bothandler.get_multi_line_keyboard(custom_keyboard, 2))
+                    else:
+                        bothandler.bot.sendMessage(chat_id, response[0])
                 except ProtocolError as e:
                     bothandler.restart()
                     bothandler.bot.sendMessage(chat_id, response[0])
