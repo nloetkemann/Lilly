@@ -36,13 +36,15 @@ def on_chat_message(message):
 def on_callback(message):
     message = Message(message)
     old_message_id = bothandler.get_message_identifier(message.get_atr('message'))
+    answer = ''
     try:
         CommandHandler.Callback().callback_action(message.get_atr('data'), message.get_atr('id', 'from'))
-        bothandler.delete_message(old_message_id)
-        bothandler.answer_callback(message.chat_id, 'Erledigt')
+        answer = 'Erledigt'
     except Exception as e:
-        bothandler.delete_message(old_message_id)
-        bothandler.answer_callback(message.chat_id, 'Es gab leider einen Fehler')
+        print(e)
+        answer = 'Es gab leider einen Fehler'
+    bothandler.delete_message(old_message_id)
+    bothandler.answer_callback(message.chat_id, answer)
 
 
 MessageLoop(bothandler.bot, {

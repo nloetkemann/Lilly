@@ -1,5 +1,7 @@
 class WitResponse:
     def __init__(self, response_text, keywords):
+        print(response_text)
+        print(keywords)
         self.text = response_text
         self.keywords = keywords
         if self.keywords is not None:

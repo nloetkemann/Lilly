@@ -24,6 +24,11 @@ class MessageStub(object):
         request_serializer=src_dot_grpc_dot_pb_dot_message__pb2.Empty.SerializeToString,
         response_deserializer=src_dot_grpc_dot_pb_dot_message__pb2.MessageResponse.FromString,
         )
+    self.DirectRequest = channel.unary_unary(
+        '/proto.src.grpc.pb.Message/DirectRequest',
+        request_serializer=src_dot_grpc_dot_pb_dot_message__pb2.MessageRequest.SerializeToString,
+        response_deserializer=src_dot_grpc_dot_pb_dot_message__pb2.Success.FromString,
+        )
 
 
 class MessageServicer(object):
@@ -44,6 +49,13 @@ class MessageServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def DirectRequest(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_MessageServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -56,6 +68,11 @@ def add_MessageServicer_to_server(servicer, server):
           servicer.StreamRequest,
           request_deserializer=src_dot_grpc_dot_pb_dot_message__pb2.Empty.FromString,
           response_serializer=src_dot_grpc_dot_pb_dot_message__pb2.MessageResponse.SerializeToString,
+      ),
+      'DirectRequest': grpc.unary_unary_rpc_method_handler(
+          servicer.DirectRequest,
+          request_deserializer=src_dot_grpc_dot_pb_dot_message__pb2.MessageRequest.FromString,
+          response_serializer=src_dot_grpc_dot_pb_dot_message__pb2.Success.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

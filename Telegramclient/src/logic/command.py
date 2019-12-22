@@ -55,7 +55,7 @@ class CommandHandler:
         def seach_wiki(self, args):
             from src.grpc.client import client   # import later because of a circular dependency
             #  todo reguest an server direkt an die Wiki entitaet
-            client.single_message('wer ist ' + args, self.chat_id)
+            client.direct_request(args, self.chat_id, 'wiki')
 
         def show_help(self):
             return """

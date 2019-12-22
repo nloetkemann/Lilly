@@ -16,7 +16,7 @@ class Client:
     CHUNK_SIZE = 1024 * 512
 
     def __init__(self):
-        print("Connect to " + os.getenv('SERVER') if os.getenv('SERVER') else 'localhost:50051')
+        print("Connect to " + (os.getenv('SERVER') if os.getenv('SERVER') else 'localhost:50051'))
         channel = grpc.insecure_channel(os.getenv('SERVER') if os.getenv('SERVER') else 'localhost:50051')
         self.message_stub = message_pb2_grpc.MessageStub(channel)
         self.file_stub = file_pb2_grpc.FileStub(channel)
@@ -26,7 +26,7 @@ class Client:
 
     def single_message(self, text, chat_id, type='text'):
         client_type = ClientType(telegramm=ClientType.Telegramm(chat_id=chat_id))
-        request = MessageRequest(body=text, type=type, client_type=client_type)
+        request = MessageRequest(body=text, type=type, client_type=client_type, entity_name='')
         feature = self.message_stub.SingleRequest(request)
         return feature.success
 
@@ -41,15 +41,18 @@ class Client:
                         return
                     yield FileRequest(buffer=piece)
 
-        print(CommandHandler.get_file_mode())
         result = self.file_stub.UploadFile(chunk_file())
         os.remove(temp_dir + filename)
         return result.success
 
+    def direct_request(self, text, chat_id, entity_name):
+        client_type = ClientType(telegramm=ClientType.Telegramm(chat_id=chat_id))
+        request = MessageRequest(body=text, type='text', client_type=client_type, entity_name=entity_name)
+        result = self.message_stub.DirectRequest(request)
+        return result
+
     def _get_messages_from_server(self):
         for r in self.message_stub.StreamRequest(Empty()):
-            # print((r.keyboard.keyboard, r.keyboard.callbackmethod))
-            # print((r.body, r.client_type))
             yield (r.body, r.client_type, r.keyboard)
 
     def _wait_for_response(self, stop_thread):  # todo muss noch stopthread einbauen

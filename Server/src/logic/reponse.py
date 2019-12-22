@@ -1,9 +1,8 @@
 class Response:
-    def __init__(self, text, *args,  type='message', client_type='telegramm'):
+    def __init__(self, text, *args,  type='message'):
         self.text = text
         self._type = type
         self.args = args
-        self.client_type = client_type
 
     def get_type(self):
         return self._type

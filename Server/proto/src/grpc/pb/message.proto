@@ -5,16 +5,18 @@ message MessageRequest {
     string body = 1;
     string type = 2;
     ClientType client_type = 3;
-
+    string entity_name = 4;
 }
 
-message Empty {}
+message Empty {
+}
 
 message Success {
     bool success = 1;
 }
 message ClientType {
-    message LA {}
+    message LA {
+    }
     message Telegramm {
         int32 chat_id = 1;
     }
@@ -41,5 +43,7 @@ service Message {
     rpc SingleRequest (MessageRequest) returns (Success) {
     }
     rpc StreamRequest (Empty) returns (stream MessageResponse) {
+    }
+    rpc DirectRequest (MessageRequest) returns (Success) {
     }
 }
