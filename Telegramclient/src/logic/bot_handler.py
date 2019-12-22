@@ -53,19 +53,15 @@ class BotHandler:
         one_line = []
         counter = 0
 
-        print(len(values))
-
         for key in values.keys():
 
             if counter == elems_in_row:
                 all_keyboards.append(one_line)
-                print(elems_in_row, len(one_line))
                 counter = 1
                 one_line = []
             else:
                 counter += 1
             one_line.append(InlineKeyboardButton(text=key, callback_data=values[key]))
-        print(len(all_keyboards))
         return InlineKeyboardMarkup(inline_keyboard=all_keyboards)
 
     # values should be array

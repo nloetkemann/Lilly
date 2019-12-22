@@ -72,3 +72,6 @@ class Client:
                 except ProtocolError as e:
                     bothandler.restart()
                     bothandler.bot.sendMessage(chat_id, response[0])
+
+
+client = Client()

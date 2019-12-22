@@ -1,10 +1,8 @@
 from telepot.loop import MessageLoop
 from src.logic.bot_handler import bothandler
-from src.grpc.client import Client, temp_dir
+from src.grpc.client import temp_dir, client
 from src.logic.message import Message
 from src.logic.command import CommandHandler
-
-client = Client()
 
 
 def on_chat_message(message):
@@ -39,7 +37,7 @@ def on_callback(message):
     message = Message(message)
     old_message_id = bothandler.get_message_identifier(message.get_atr('message'))
     try:
-        CommandHandler.Callback().callback_action(message.get_atr('data'))
+        CommandHandler.Callback().callback_action(message.get_atr('data'), message.get_atr('id', 'from'))
         bothandler.delete_message(old_message_id)
         bothandler.answer_callback(message.chat_id, 'Erledigt')
     except Exception as e:

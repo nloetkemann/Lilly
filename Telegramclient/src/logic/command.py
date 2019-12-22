@@ -39,8 +39,11 @@ class CommandHandler:
             return self.file_mode()
 
     class Callback:
+        chat_id = ""
+
         # Hier wird die Methode ausgeführt, die als Callback zurück kam
-        def callback_action(self, data):
+        def callback_action(self, data, chat_id):
+            self.chat_id = chat_id
             split = data.split(';')
             if len(split) == 1:
                 method = split[0]
@@ -49,6 +52,10 @@ class CommandHandler:
                 method, args = split
                 return getattr(self, method)(args)
 
+        def seach_wiki(self, args):
+            from src.grpc.client import client   # import later because of a circular dependency
+            #  todo reguest an server direkt an die Wiki entitaet
+            client.single_message('wer ist ' + args, self.chat_id)
 
         def show_help(self):
             return """
@@ -73,14 +80,3 @@ class CommandHandler:
 
         def change_mode(self, mode):
             CommandHandler.set_file_mode(mode)
-
-        # def timer_status(self, name):
-        #     for time_object in time_object_list:
-        #         if time_object.name == name:
-        #             return TimerEntity.status_to_time(time_object.get_status(), None).text
-        #
-        # def timer_delete(self, name):
-        #     for time_object in time_object_list:
-        #         if time_object.name == name:
-        #             time_object.stop_timer()
-        #             return 'Dein Timer wurde erfolgreich gelöscht.'
